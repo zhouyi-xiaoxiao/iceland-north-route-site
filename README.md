@@ -17,3 +17,7 @@
 
 - 设计为 GitHub Pages 直接托管
 - 无构建步骤，推送后即可在线预览
+
+公开预览：
+
+- https://zhouyi-xiaoxiao.github.io/iceland-north-route-site/
