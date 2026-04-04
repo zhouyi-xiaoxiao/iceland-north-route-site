@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>冰岛北部雪天路线站｜2026-04-05 Bakkagerði → Akureyri</title>
+    <meta
+      name="description"
+      content="给 2026-04-05 从 Blábjörg Resort 出发、前往 Hotel Kea 的冰岛北部中文路线站。含天气趋势、官方路况门槛、A/B/C 路线、地图和预计耗时。"
+    />
+    <meta property="og:title" content="冰岛北部雪天路线站｜2026-04-05 Bakkagerði → Akureyri" />
+    <meta
+      property="og:description"
+      content="一个可公开分享的冰岛北部中文路线页，含雪天决策门槛、地图总览、A/B/C 路线和预计耗时。"
+    />
+    <meta property="og:type" content="website" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="shell topbar-inner">
+        <div class="brand">
+          <div class="brand-mark">IS</div>
+          <div>
+            <strong>冰岛北部雪天路线站</strong>
+            <span>Bakkagerði → Akureyri</span>
+          </div>
+        </div>
+        <nav class="anchor-list" aria-label="页面导航">
+          <a href="#overview">总览</a>
+          <a href="#conditions">天气路况</a>
+          <a href="#map-route">地图</a>
+          <a href="#routes">A/B/C 方案</a>
+          <a href="#stops">景点</a>
+          <a href="#timing">时间预算</a>
+          <a href="#sources">核验链接</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section class="hero" id="overview">
+        <div class="hero-grid">
+          <article class="hero-card">
+            <p class="eyebrow">2026-04-05 | 四驱 SUV | 单日拉满版</p>
+            <h1>先过出山关，再冲北部精华</h1>
+            <p class="lead" id="hero-message">
+              页面加载中。
+            </p>
+
+            <div class="scenario-panel">
+              <div>
+                <p class="scenario-label">场景切换</p>
+                <p class="scenario-note">
+                  用来手动验证三种页面状态：94 号路关闭、A 线可走但 Húsavík 不建议、A/B 都可展示。
+                </p>
+              </div>
+              <div class="scenario-switch" id="scenario-switch" role="group" aria-label="路况场景">
+                <button type="button" class="scenario-button" data-scenario="closed94">
+                  94 号路关闭
+                </button>
+                <button type="button" class="scenario-button" data-scenario="aOnly">
+                  A 线可走
+                </button>
+                <button type="button" class="scenario-button" data-scenario="abOpen">
+                  A/B 均可
+                </button>
+              </div>
+            </div>
+
+            <div class="hero-metrics" id="hero-metrics"></div>
+          </article>
+
+          <aside class="hero-side">
+            <div class="hero-visual card">
+              <div class="visual-copy">
+                <p class="mini-eyebrow">路线视觉</p>
+                <h2>东部到北部的雪天决策图</h2>
+                <p>
+                  用一张简化冰岛轮廓图，把明天真正要做的事说清楚：先看 94 号路门槛，再决定是冲 Mývatn 核心圈，还是把 Húsavík 当作条件加分项。
+                </p>
+              </div>
+              <svg
+                class="iceland-graphic"
+                viewBox="0 0 520 340"
+                aria-label="简化冰岛地图路线示意图"
+              >
+                <defs>
+                  <linearGradient id="routeGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#8ce0ff" />
+                    <stop offset="100%" stop-color="#79f0c2" />
+                  </linearGradient>
+                </defs>
+                <path
+                  class="island-shape"
+                  d="M44 165c14-40 49-69 101-79l31-28 51 7 30-16 64 21 38-8 58 24 28 31-9 36 36 29-20 26-50 3-41 32-63 12-60-9-45 22-65-11-51 7-44-24-2-42-31-27 10-26z"
+                />
+                <path
+                  class="route-arc"
+                  d="M387 120c-34 7-71 29-95 62-13 19-24 38-42 52-30 23-61 36-95 43"
+                />
+                <circle class="map-dot map-dot-start" cx="396" cy="118" r="8" />
+                <circle class="map-dot map-dot-mid" cx="244" cy="220" r="8" />
+                <circle class="map-dot map-dot-end" cx="96" cy="269" r="8" />
+                <text x="404" y="106">Bakkagerði</text>
+                <text x="254" y="212">Mývatn</text>
+                <text x="30" y="286">Akureyri</text>
+              </svg>
+            </div>
+
+            <div class="card gate-card">
+              <div class="section-chip">出发门槛卡</div>
+              <div id="gate-summary"></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="conditions">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Section 1</p>
+            <h2>明日天气 / 路况全景判断</h2>
+          </div>
+          <p>
+            天气只看趋势，真正的能不能走以官方路况为准。这里把最影响决策的几个地带单独拆开，不让信息混在一起。
+          </p>
+        </div>
+
+        <div class="summary-grid" id="weather-grid"></div>
+        <div class="gates-grid" id="gates-grid"></div>
+      </section>
+
+      <section id="map-route">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Section 2</p>
+            <h2>冰岛地图与路线图</h2>
+          </div>
+          <p>
+            实线是主推荐 A 线，虚线是 Húsavík 加分支线 B 线，细线是保底 C 线。即使地图底图加载失败，下面的路线和耗时仍然完整可读。
+          </p>
+        </div>
+
+        <div class="map-card card">
+          <div class="map-head">
+            <div>
+              <h3>路线地图</h3>
+              <p id="map-caption">
+                页面加载中。
+              </p>
+            </div>
+            <div class="map-legend">
+              <span><i class="line-a"></i>A 线主推荐</span>
+              <span><i class="line-b"></i>B 线 Húsavík 支线</span>
+              <span><i class="line-c"></i>C 线保底</span>
+            </div>
+          </div>
+          <div id="map-overview" class="map-overview"></div>
+          <div class="map-wrapper">
+            <div id="map" aria-label="路线地图"></div>
+            <div id="map-fallback" class="map-fallback">
+              离线或脚本被拦截时，地图底图可能不可用；路线顺序、停靠点、官方核验链接仍可直接使用。
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="routes">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Section 3</p>
+            <h2>A / B / C 路线卡片</h2>
+          </div>
+          <p>
+            不是只给一条“理想路线”，而是把明天最可能遇到的三种状态写成可执行的决策树：主推荐、拉满版、保底版。
+          </p>
+        </div>
+        <div class="route-grid" id="route-grid"></div>
+      </section>
+
+      <section id="stops">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Section 4</p>
+            <h2>核心景点卡片</h2>
+          </div>
+          <p>
+            优先保留真正值回票价的北部精华：大瀑布、火山地貌、地热烟雾、湖边火山口。每个点都标明雪天是否建议跳过。
+          </p>
+        </div>
+        <div class="stop-grid" id="stop-grid"></div>
+      </section>
+
+      <section id="timing">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Section 5</p>
+            <h2>时间预算与到店窗口</h2>
+          </div>
+          <p>
+            默认按 07:15 左右离店。这里把“基线驾驶时间”“雪天保守增量”“实际停留”拆开，避免低估北部雪天的疲劳成本。
+          </p>
+        </div>
+        <div class="timing-layout">
+          <article class="card timeline-card">
+            <h3>推荐节奏</h3>
+            <div id="timeline"></div>
+          </article>
+          <aside class="card arrival-card">
+            <h3>到达 Hotel Kea 的保守窗口</h3>
+            <div id="arrival-summary"></div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="sources">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Section 6</p>
+            <h2>官方核验链接与驾驶建议</h2>
+          </div>
+          <p>
+            明天真正上路前，先点官方页面再出发。页面里的天气文案只做趋势说明，不替代实时通行信息。
+          </p>
+        </div>
+        <div class="source-layout">
+          <article class="card">
+            <h3>核验链接</h3>
+            <div id="source-list" class="source-list"></div>
+          </article>
+          <aside class="card tips-card">
+            <h3>明天的驾驶重点</h3>
+            <ul class="tips-list">
+              <li>先看 94 号路出山段。如果仍是 <strong>Impassable</strong>，不要强行下山，先联系住宿调整计划。</li>
+              <li>Mývatn 和 Akureyri 一带即使可通行，也可能是 <strong>Snow / Slippery</strong>，白天视线稍好时优先走核心景点。</li>
+              <li>Húsavík 只在中午前节奏顺、路况不高于 <strong>Slippery</strong> 时开启；晚出发就把它砍掉。</li>
+              <li>Dettifoss 862 / 864 今天已经不适合当主计划，不要为了“多一个著名点”把整天拖进高风险路段。</li>
+              <li>每次加油、上洗手间、买热饮都尽量在 Egilsstaðir 或 Reykjahlíð 一带完成，避免后段被动停车。</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="shell footer-inner">
+        <p>冰岛北部雪天路线站 · 适配 2026-04-05 的中文自驾决策页</p>
+        <p>数据更新时间以页面内写明的 2026-04-04 22:51 GMT 为准</p>
+      </div>
+    </footer>
+
+    <noscript>
+      <div class="shell noscript-note">
+        这个页面需要 JavaScript 才能切换场景和渲染路线地图，但文本内容与外链仍可直接阅读。
+      </div>
+    </noscript>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
