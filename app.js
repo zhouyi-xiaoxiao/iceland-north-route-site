@@ -46,8 +46,8 @@ const routeData = {
       snowBufferMinutes: 90,
       stopMinutes: 190,
       wholeDayEstimate: "8-10 小时",
-      departure: "07:15",
-      arrivalWindow: ["15:50", "17:45"],
+      departure: "10:30",
+      arrivalWindow: ["19:00", "20:45"],
       summary:
         "Bakkagerði → Egilsstaðir → Hverir / Grjótagjá / Dimmuborgir 或 Skútustaðagígar（三选二）→ Goðafoss → Akureyri",
       mustKeep: [
@@ -85,18 +85,18 @@ const routeData = {
       snowBufferMinutes: 120,
       stopMinutes: 220,
       wholeDayEstimate: "10-12 小时",
-      departure: "07:15",
-      arrivalWindow: ["17:50", "19:55"],
+      departure: "10:30",
+      arrivalWindow: ["21:00", "22:00"],
       summary:
         "在 A 线基础上加入 Húsavík 港口 / 灯塔 / GeoSea 可选段，适合天气稍缓和且你们上午推进顺利的时候。",
       mustKeep: [
         "Mývatn 核心圈完成后再看 Húsavík",
-        "中午前若节奏顺畅，再决定是否拐去海边",
+        "最晚 15:00 左右离开 Mývatn 核心圈时仍节奏顺畅，再决定是否拐去海边",
         "回 Akureyri 仍以 Goðafoss 收尾",
       ],
       watchouts: [
         "只要 Mývatn → Húsavík 或 Húsavík → Akureyri 高于 Slippery，立刻放弃",
-        "B 线是加分不是刚需，晚到 Akureyri 的代价是真实存在的",
+        "B 线现在是可以冲的加分项，但目标仍是 22:00 前到 Akureyri",
         "GeoSea 仅作选项，不嵌进必须时序",
       ],
       scenarioStatus: {
@@ -126,8 +126,8 @@ const routeData = {
       snowBufferMinutes: 135,
       stopMinutes: 60,
       wholeDayEstimate: "5-7 小时",
-      departure: "07:15",
-      arrivalWindow: ["12:30", "14:45"],
+      departure: "10:30",
+      arrivalWindow: ["15:30", "17:30"],
       summary:
         "如果北部横穿条件持续恶化，只保留 Egilsstaðir 补给和必要过路停靠，把目标调整成安全到 Akureyri 或及时止损沟通住宿。",
       mustKeep: [
@@ -158,7 +158,7 @@ const routeData = {
       fee: "已住宿",
       snowSkip: "不可跳过",
       priority: "必须保留",
-      blurb: "默认 07:00-07:30 之间离店，先查 94 号路再正式出发。",
+      blurb: "默认 10:00-11:00 之间离店，先查 94 号路再正式出发。",
     },
     {
       id: "egilsstadir",
@@ -389,7 +389,7 @@ const scenarios = {
   aOnly: {
     label: "A 线可走但 Húsavík 不建议",
     hero:
-      "如果 94 号路早晨解除封闭，但 Mývatn 和 Húsavík 方向仍然是 Snow / Slippery，那么今天最值的打法是稳走 A 线：先把 Mývatn 核心圈和 Goðafoss 吃满，再把 Húsavík 砍掉。",
+      "如果 94 号路早晨解除封闭，但 Mývatn 和 Húsavík 方向仍然是 Snow / Slippery，那么在 10:30 左右出发、22:00 前到店的前提下，最值的打法仍然是稳走 A 线：先把 Mývatn 核心圈和 Goðafoss 吃满，再把 Húsavík 砍掉。",
     gateLead: "今天的正确心法：主线可以争取，支线不要贪。",
     mapCaption: "当前场景：优先 A 线，B 线只保留在地图上作为预案，不建议实走。",
     recommendedRoute: "a",
@@ -402,7 +402,7 @@ const scenarios = {
   abOpen: {
     label: "A / B 线都可展示",
     hero:
-      "如果 94 号路已恢复通行，Mývatn 横穿段可接受，且 Húsavík 支线不高于 Slippery，那么可以保留 A 线为主推荐，并把 B 线作为上午推进顺利后的拉满版加分项。",
+      "如果 94 号路已恢复通行，Mývatn 横穿段可接受，且 Húsavík 支线不高于 Slippery，那么在 10:30 左右出发、22:00 前到店的窗口里，可以保留 A 线为主推荐，并把 B 线作为推进顺利后的拉满版加分项。",
     gateLead: "今天的策略：先按 A 线起跑，到中午前再决定是否加 Húsavík。",
     mapCaption: "当前场景：A 线主推荐，B 线为条件允许时的拉满版，C 线仍然作为保底存在。",
     recommendedRoute: "a",
@@ -426,6 +426,7 @@ const routeLegNotes = [
 const elements = {
   heroMessage: document.querySelector("#hero-message"),
   heroMetrics: document.querySelector("#hero-metrics"),
+  quickBoard: document.querySelector("#quick-board"),
   gateSummary: document.querySelector("#gate-summary"),
   weatherGrid: document.querySelector("#weather-grid"),
   gatesGrid: document.querySelector("#gates-grid"),
@@ -457,7 +458,7 @@ let markerLayer;
 let keyLabelLayer;
 
 const mapOverviewStops = [
-  { key: "gate", title: "出发闸门", body: "94 号路 / Bakkagerði", meta: "07:15 前先核验" },
+  { key: "gate", title: "出发闸门", body: "94 号路 / Bakkagerði", meta: "10:00 前先核验" },
   { key: "egilsstadir", title: "补给锚点", body: "Egilsstaðir", meta: "55 分基线" },
   { key: "myvatn", title: "核心美景", body: "Mývatn 火山地热圈", meta: "至少两处" },
   { key: "husavik", title: "拉满加分", body: "Húsavík 海港线", meta: "仅条件允许" },
@@ -481,6 +482,43 @@ function sourceByKey(key) {
 function getStatusBadge(statusKey) {
   const meta = statusMeta[statusKey] || statusMeta.muted;
   return `<span class="status-badge ${meta.className}">${meta.label}</span>`;
+}
+
+function renderQuickBoard() {
+  const tiles = [
+    {
+      status: "danger",
+      title: "94 号路没开就停",
+      body: "第一道门槛没过，今天不是拼胆量的时候，先联系住宿。",
+    },
+    {
+      status: "good",
+      title: "主线优先 A 线",
+      body: "10:30 出发也来得及把 Mývatn 核心圈 + Goðafoss 做完整。",
+    },
+    {
+      status: "warning",
+      title: "Húsavík 是冲线加分",
+      body: "只有 15:00 前离开 Mývatn 核心圈、且支线不高于 Slippery 时才加。",
+    },
+    {
+      status: "muted",
+      title: "东北边今天仍不进主计划",
+      body: "不是不值得，而是 Dettifoss / 更东北方向当前仍更像高风险绕行。",
+    },
+  ];
+
+  elements.quickBoard.innerHTML = tiles
+    .map(
+      (tile) => `
+        <article class="quick-tile">
+          ${getStatusBadge(tile.status)}
+          <strong>${tile.title}</strong>
+          <p>${tile.body}</p>
+        </article>
+      `,
+    )
+    .join("");
 }
 
 function minutesToHours(minutes) {
@@ -507,8 +545,10 @@ function renderHero() {
     <div class="metric"><strong>建议起步</strong>${recommended.departure}</div>
     <div class="metric"><strong>主打方案</strong>${recommended.label} ${recommended.title}</div>
     <div class="metric"><strong>当天总估算</strong>${recommended.wholeDayEstimate}</div>
+    <div class="metric"><strong>最晚目标</strong>22:00 前到店</div>
     <div class="metric"><strong>数据更新</strong>${routeData.updatedAt}</div>
   `;
+  renderQuickBoard();
 
   const gate = routeData.gates[0];
   const gateStatus = scenario.routeStates.road94;
@@ -672,11 +712,11 @@ function renderTimeline() {
       note: "优先 Hverir，再看体力与风雪在 Grjótagjá / Dimmuborgir / Skútustaðagígar 中做两到三个点。",
     },
     {
-      time: activeScenario === "abOpen" ? "13:30 前后" : "14:30 前后",
-      title: activeScenario === "abOpen" ? "决定是否打开 Húsavík" : "放弃 Húsavík，直接收 Goðafoss",
+      time: activeScenario === "abOpen" ? "15:00 前后" : "16:00 前后",
+      title: activeScenario === "abOpen" ? "决定是否打开 Húsavík / 更拉满" : "放弃 Húsavík，直接收 Goðafoss",
       note:
         activeScenario === "abOpen"
-          ? "只有上午推进顺畅、道路不高于 Slippery 时才加 B 线。"
+          ? "只有 15:00 前后离开 Mývatn 核心圈仍推进顺畅、道路不高于 Slippery 时才加 B 线。"
           : "把所有额外支线砍掉，专心把大景点和入住时间守住。",
     },
     {
@@ -722,7 +762,7 @@ function renderArrivalSummary() {
 
   elements.arrivalSummary.innerHTML = `
     <p>
-      当前场景下主推荐是 <strong>${recommended.label} ${recommended.title}</strong>。默认按 07:15 出发，不做长徒步、不预订鲸鱼船，也不把 GeoSea 写进必做时序。
+      当前场景下主推荐是 <strong>${recommended.label} ${recommended.title}</strong>。默认按 10:30 左右出发、22:00 前到店，不做长徒步、不预订鲸鱼船，也不把 GeoSea 写进必做时序。
     </p>
     <div class="arrival-window">
       <strong>${recommended.label} ${recommended.title}</strong>
