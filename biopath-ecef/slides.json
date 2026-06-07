@@ -1,0 +1,142 @@
+[
+  {
+    "num": 1,
+    "title": "BioPath",
+    "visual": "Map in. Traps out. Proof attached.",
+    "support": "Turning movement research into a pest-placement decision.",
+    "note": "Hi, I'm Xiaoxiao Zhouyi. I work on movement and encounter models, and BioPath is my ECEF project: a tool that turns a site map into better trap locations. The promise is simple: map in, traps out, proof attached."
+  },
+  {
+    "num": 2,
+    "title": "The Strawberry Reason",
+    "visual": "This started close to home.",
+    "support": "Movement modelling is my route in; my grandfather's strawberries are why it feels personal.",
+    "note": "I come to this as someone who works on movement and encounters. But the motivation is also personal: my grandfather's home grew strawberries. So crop protection was never only a market or a model. It was plants, labour, timing, and uncertainty."
+  },
+  {
+    "num": 3,
+    "title": "What Counts as a Trap",
+    "visual": "A trap is where movement becomes evidence.",
+    "support": "Lures attract, sticky cards catch, and monitoring points count what is happening in the crop row.",
+    "note": "When I say trap, I mean a practical monitoring point in the crop: it might use a lure, a sticky card, or a small sensor. The key idea is that the trap turns movement into evidence. BioPath asks where those points should go, so the evidence is useful rather than accidental."
+  },
+  {
+    "num": 4,
+    "title": "Why It Matters",
+    "visual": "A few metres can change the work that follows.",
+    "support": "Better placement can reduce wasted checks, chemical pressure, and weak explanations.",
+    "note": "Why does that matter? Because a small placement decision can create a lot of follow-up work. If traps are in weak positions, people spend time checking, moving, and defending them. BioPath is meant to make that first decision clearer."
+  },
+  {
+    "num": 5,
+    "title": "Research Origin",
+    "visual": "Movement is uncertain. The environment shapes it.",
+    "support": "Encounters are not random once space has structure.",
+    "note": "The research idea is simple enough to say without equations. Movement is uncertain, but it is not random in every direction. Walls, corridors, entrances, and risky zones all shape where encounters are likely. That is the piece BioPath uses."
+  },
+  {
+    "num": 6,
+    "title": "Translation",
+    "visual": "ECEF moved the model toward a user decision.",
+    "support": "A clever equation is not enough; someone has to act on the answer.",
+    "note": "ECEF helped me stop treating this only as a model. A model can be clever and still not help anyone. The user question is sharper: can someone draw a map, choose a budget, and understand the recommended placements?"
+  },
+  {
+    "num": 7,
+    "title": "Fellowship Frame",
+    "visual": "The fellowship made the idea visible.",
+    "support": "User, evidence, prototype, and story all had to become concrete.",
+    "note": "The fellowship gave the idea a deadline and a room full of useful pressure. It made me test the parts I used to postpone: who needs this, what they would trust, and what the first version should prove."
+  },
+  {
+    "num": 8,
+    "title": "What BioPath Does",
+    "visual": "A simple workflow people can question.",
+    "support": "Map, budget, coordinates, proof: each step should be explainable.",
+    "note": "The product version is intentionally plain. A user starts with a site map and a number of traps. BioPath returns a ranked plan plus a benchmark. The important thing is not the picture; it is whether the recommendation can be discussed."
+  },
+  {
+    "num": 9,
+    "title": "Prototype",
+    "visual": "The prototype makes the story concrete.",
+    "support": "Solver, API, web demo, and saved run outputs make the workflow tangible.",
+    "note": "I have built enough of the prototype to make the idea tangible. There is a solver, a small API, a web demo, and saved run outputs. It is not polished software yet, but it is no longer just a sentence on a slide."
+  },
+  {
+    "num": 10,
+    "title": "Model Layer",
+    "visual": "The map makes the assumptions visible.",
+    "support": "A synthetic site lets us discuss the logic without private field data.",
+    "note": "Before BioPath solves anything, it needs to know what the site looks like. Where can movement happen? Where are the barriers? Which areas matter most? I use a synthetic map here so the assumptions stay visible and discussable."
+  },
+  {
+    "num": 11,
+    "title": "Solve Layer",
+    "visual": "Coordinates, not just a picture.",
+    "support": "The decision shifts from gut feel alone to a placement that can be tested.",
+    "note": "Then the model searches for placements. I do not need to show every calculation in this talk. The point is the change in the decision: instead of saying these spots look right, we can ask why these spots, and how good are they?"
+  },
+  {
+    "num": 12,
+    "title": "Early Proof",
+    "visual": "Early evidence turns the next test specific.",
+    "support": "Demo metrics are not the finish line; they define what a pilot should measure.",
+    "note": "The numbers here are not the finish line. They are a starting point for the evidence a pilot would need. Capture score, distance, and robustness give me concrete things to ask about, instead of asking vaguely whether this looks good."
+  },
+  {
+    "num": 13,
+    "title": "Customer Discovery",
+    "visual": "The hard question is trust.",
+    "support": "From can it work? to who would use it, pay for it, and repeat it?",
+    "note": "ECEF changed the question from, can I make the algorithm work, to, who would actually use this? That is a bigger question. The Ceres AgriTech conversations helped make it practical: trust, workflow, price, evidence, and grower needs."
+  },
+  {
+    "num": 14,
+    "title": "Language Shift",
+    "visual": "I had to translate novelty into value.",
+    "support": "Start with the decision; bring in the method only when it helps.",
+    "note": "I also had to change my language. In research, I might start with mean first-passage time. In a room like this, that starts too far in. I should start with the decision: where to place traps, and why."
+  },
+  {
+    "num": 15,
+    "title": "The Product Promise",
+    "visual": "Map in. Traps out. Proof attached.",
+    "support": "The idea has to be simple enough to travel without me in the room.",
+    "note": "That phrase is the product promise. Map in means a real site. Traps out means a concrete recommendation. Proof attached means the decision can be questioned. If people remember that, BioPath has a story that can travel."
+  },
+  {
+    "num": 16,
+    "title": "Commercialisation Reality",
+    "visual": "A useful tool needs rules of the road.",
+    "support": "IP, pilots, partners, and adoption route matter because they protect the next step.",
+    "note": "Commercialisation made the project more real. I have started the software and IP route, and I need pilots and partners around that. Those details should support the main story, not bury it. The story is still the decision."
+  },
+  {
+    "num": 17,
+    "title": "The Ask",
+    "visual": "The next step needs real sites.",
+    "support": "I am looking for pilot conversations, pest-control expertise, and practical feedback.",
+    "note": "The most useful response would be a real test. I would love to speak with growers, pest managers, agritech people, or anyone who knows field constraints. A small pilot conversation would tell me far more than general interest."
+  },
+  {
+    "num": 18,
+    "title": "Not Just on Paper",
+    "visual": "The route to use has already started.",
+    "support": "Ceres AgriTech LINCAM EOI advice is underway, with software/IP information submitted through Bristol.",
+    "note": "This is not just a slide exercise. I have already asked Bristol's commercialisation team about a Ceres AgriTech LINCAM Proof of Concept EOI, and I have submitted the software information form. That does not mean funding is secured. It means the route is real."
+  },
+  {
+    "num": 19,
+    "title": "Next Step",
+    "visual": "From showcase to pilot conversation.",
+    "support": "One partner site, one baseline map, one evidence plan.",
+    "note": "After this showcase, the practical next step is deliberately small: one partner site, one baseline map, and one evidence plan. The LINCAM route is useful because it asks exactly those questions: grower need, field evidence, and commercial fit."
+  },
+  {
+    "num": 20,
+    "title": "Thank You",
+    "visual": "One useful decision, made clearer.",
+    "support": "Thanks to ECEF, my supervisor Luca Giuggioli, Bristol Innovations, and the Ceres AgriTech conversations.",
+    "note": "So the final message is simple. BioPath takes a messy placement decision and makes it easier to discuss: here is the map, here are the coordinates, here is the evidence. Thank you to ECEF, Luca, Bristol Innovations, and the Ceres AgriTech conversations that helped move this toward practice."
+  }
+]

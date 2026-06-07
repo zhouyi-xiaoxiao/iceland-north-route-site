@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BioPath V3 Speaker View</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Bodoni+Moda:ital,wght@0,600;0,700;0,800;1,600;1,700;1,800&family=JetBrains+Mono:wght@500;700&display=swap');
+  :root {
+    color-scheme: dark;
+    --deep:#062B24;
+    --panel:#0E3A31;
+    --panel2:#123F36;
+    --paper:#FFF9EF;
+    --muted:#B8CDC4;
+    --line:rgba(255,255,255,.16);
+    --accent:#BF6E33;
+    --ox:#9D3428;
+    --mint:#C9DCCF;
+    --f-display:'Bodoni Moda','Bodoni 72','Didot','Georgia',serif;
+    --f-sans:'Archivo','Avenir Next','Helvetica Neue',Arial,sans-serif;
+    --f-mono:'JetBrains Mono','SF Mono',ui-monospace,monospace;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#031A15; color:var(--paper); font-family:var(--f-sans); }
+  .wrap { height:100vh; display:grid; grid-template-rows:auto 1fr; }
+  header { position:sticky; top:0; z-index:3; display:grid; grid-template-columns:1fr auto auto; gap:18px; align-items:center; padding:18px 24px; border-bottom:1px solid var(--line); background:rgba(6,43,36,.97); }
+  .title b { display:block; color:var(--mint); font-family:var(--f-mono); font-size:12px; text-transform:uppercase; letter-spacing:0; }
+  .title strong { display:block; font-family:var(--f-display); font-style:italic; font-size:34px; line-height:1; margin-top:4px; }
+  .controls { display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+  button, a.button { appearance:none; border:1px solid rgba(255,255,255,.22); background:var(--panel2); color:var(--paper); padding:12px 14px; font-size:15px; font-weight:800; text-decoration:none; cursor:pointer; }
+  button:hover, a.button:hover { background:#184E43; }
+  .timer { font-family:var(--f-mono); font-size:32px; font-weight:700; color:var(--accent); min-width:112px; text-align:right; }
+  main { min-height:0; overflow:hidden; display:grid; grid-template-columns:minmax(0,1.12fr) minmax(340px,.88fr); gap:16px; padding:14px; }
+  .card { background:var(--panel); border:1px solid var(--line); padding:22px; min-height:0; overflow:auto; }
+  .eyebrow { color:var(--accent); font-family:var(--f-mono); font-size:16px; font-weight:700; margin-bottom:16px; text-transform:uppercase; }
+  h1 { margin:0 0 18px; font-family:var(--f-display); font-style:italic; font-size:clamp(36px, 4.2vw, 54px); line-height:1; letter-spacing:0; }
+  .script { margin:0; font-size:clamp(28px, 2.6vw, 36px); line-height:1.22; font-weight:700; }
+  .support { color:var(--muted); font-size:20px; line-height:1.35; margin-top:18px; }
+  .next h2 { margin:0 0 12px; color:var(--mint); font-family:var(--f-mono); font-size:18px; text-transform:uppercase; }
+  .next p { margin:0; color:#E2ECE7; font-size:24px; line-height:1.24; font-weight:750; }
+  .queue { display:grid; gap:10px; margin-top:20px; max-height:52vh; overflow:auto; padding-right:4px; }
+  .queue div { border:1px solid rgba(255,255,255,.12); padding:11px 13px; color:#CADBD4; font-size:16px; }
+  .queue div.active { background:var(--ox); color:var(--paper); border-color:var(--ox); font-weight:850; }
+  .hint { color:#9EB9AE; font-size:15px; line-height:1.35; margin-top:16px; }
+  @media (max-width: 900px) {
+    header { grid-template-columns:1fr; align-items:start; }
+    .timer { text-align:left; }
+    main { grid-template-columns:1fr; padding:12px; }
+    .script { font-size:30px; }
+    h1 { font-size:38px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="title"><b id="where">Slide 01 / 20</b><strong id="header-title">BioPath</strong></div>
+  <div class="controls">
+    <button id="prev">Prev</button>
+    <button id="next">Next</button>
+    <button id="reset">Reset timer</button>
+    <a class="button" href="index.html" target="_blank">Open audience V3</a>
+  </div>
+  <div class="timer" id="timer">00:00</div>
+</header>
+<main>
+  <section class="card current">
+    <div class="eyebrow" id="eyebrow"></div>
+    <h1 id="claim"></h1>
+    <p class="script" id="note"></p>
+    <div class="support" id="support"></div>
+  </section>
+  <aside class="card next">
+    <h2>Next</h2>
+    <p id="next-card"></p>
+    <div class="queue" id="queue"></div>
+    <div class="hint">This V3 speaker page follows the V3 audience page. The audience page auto-advances every 20 seconds. Use Space/Right/Left only if you need to override. Press T to reset this slide's countdown.</div>
+  </aside>
+</main>
+</div>
+<script>
+const slides = [{"num": 1, "title": "BioPath", "visual": "Map in. Traps out. Proof attached.", "support": "Turning movement research into a pest-placement decision.", "note": "Hi, I'm Xiaoxiao Zhouyi. I work on movement and encounter models, and BioPath is my ECEF project: a tool that turns a site map into better trap locations. The promise is simple: map in, traps out, proof attached."}, {"num": 2, "title": "The Strawberry Reason", "visual": "This started close to home.", "support": "Movement modelling is my route in; my grandfather's strawberries are why it feels personal.", "note": "I come to this as someone who works on movement and encounters. But the motivation is also personal: my grandfather's home grew strawberries. So crop protection was never only a market or a model. It was plants, labour, timing, and uncertainty."}, {"num": 3, "title": "What Counts as a Trap", "visual": "A trap is where movement becomes evidence.", "support": "Lures attract, sticky cards catch, and monitoring points count what is happening in the crop row.", "note": "When I say trap, I mean a practical monitoring point in the crop: it might use a lure, a sticky card, or a small sensor. The key idea is that the trap turns movement into evidence. BioPath asks where those points should go, so the evidence is useful rather than accidental."}, {"num": 4, "title": "Why It Matters", "visual": "A few metres can change the work that follows.", "support": "Better placement can reduce wasted checks, chemical pressure, and weak explanations.", "note": "Why does that matter? Because a small placement decision can create a lot of follow-up work. If traps are in weak positions, people spend time checking, moving, and defending them. BioPath is meant to make that first decision clearer."}, {"num": 5, "title": "Research Origin", "visual": "Movement is uncertain. The environment shapes it.", "support": "Encounters are not random once space has structure.", "note": "The research idea is simple enough to say without equations. Movement is uncertain, but it is not random in every direction. Walls, corridors, entrances, and risky zones all shape where encounters are likely. That is the piece BioPath uses."}, {"num": 6, "title": "Translation", "visual": "ECEF moved the model toward a user decision.", "support": "A clever equation is not enough; someone has to act on the answer.", "note": "ECEF helped me stop treating this only as a model. A model can be clever and still not help anyone. The user question is sharper: can someone draw a map, choose a budget, and understand the recommended placements?"}, {"num": 7, "title": "Fellowship Frame", "visual": "The fellowship made the idea visible.", "support": "User, evidence, prototype, and story all had to become concrete.", "note": "The fellowship gave the idea a deadline and a room full of useful pressure. It made me test the parts I used to postpone: who needs this, what they would trust, and what the first version should prove."}, {"num": 8, "title": "What BioPath Does", "visual": "A simple workflow people can question.", "support": "Map, budget, coordinates, proof: each step should be explainable.", "note": "The product version is intentionally plain. A user starts with a site map and a number of traps. BioPath returns a ranked plan plus a benchmark. The important thing is not the picture; it is whether the recommendation can be discussed."}, {"num": 9, "title": "Prototype", "visual": "The prototype makes the story concrete.", "support": "Solver, API, web demo, and saved run outputs make the workflow tangible.", "note": "I have built enough of the prototype to make the idea tangible. There is a solver, a small API, a web demo, and saved run outputs. It is not polished software yet, but it is no longer just a sentence on a slide."}, {"num": 10, "title": "Model Layer", "visual": "The map makes the assumptions visible.", "support": "A synthetic site lets us discuss the logic without private field data.", "note": "Before BioPath solves anything, it needs to know what the site looks like. Where can movement happen? Where are the barriers? Which areas matter most? I use a synthetic map here so the assumptions stay visible and discussable."}, {"num": 11, "title": "Solve Layer", "visual": "Coordinates, not just a picture.", "support": "The decision shifts from gut feel alone to a placement that can be tested.", "note": "Then the model searches for placements. I do not need to show every calculation in this talk. The point is the change in the decision: instead of saying these spots look right, we can ask why these spots, and how good are they?"}, {"num": 12, "title": "Early Proof", "visual": "Early evidence turns the next test specific.", "support": "Demo metrics are not the finish line; they define what a pilot should measure.", "note": "The numbers here are not the finish line. They are a starting point for the evidence a pilot would need. Capture score, distance, and robustness give me concrete things to ask about, instead of asking vaguely whether this looks good."}, {"num": 13, "title": "Customer Discovery", "visual": "The hard question is trust.", "support": "From can it work? to who would use it, pay for it, and repeat it?", "note": "ECEF changed the question from, can I make the algorithm work, to, who would actually use this? That is a bigger question. The Ceres AgriTech conversations helped make it practical: trust, workflow, price, evidence, and grower needs."}, {"num": 14, "title": "Language Shift", "visual": "I had to translate novelty into value.", "support": "Start with the decision; bring in the method only when it helps.", "note": "I also had to change my language. In research, I might start with mean first-passage time. In a room like this, that starts too far in. I should start with the decision: where to place traps, and why."}, {"num": 15, "title": "The Product Promise", "visual": "Map in. Traps out. Proof attached.", "support": "The idea has to be simple enough to travel without me in the room.", "note": "That phrase is the product promise. Map in means a real site. Traps out means a concrete recommendation. Proof attached means the decision can be questioned. If people remember that, BioPath has a story that can travel."}, {"num": 16, "title": "Commercialisation Reality", "visual": "A useful tool needs rules of the road.", "support": "IP, pilots, partners, and adoption route matter because they protect the next step.", "note": "Commercialisation made the project more real. I have started the software and IP route, and I need pilots and partners around that. Those details should support the main story, not bury it. The story is still the decision."}, {"num": 17, "title": "The Ask", "visual": "The next step needs real sites.", "support": "I am looking for pilot conversations, pest-control expertise, and practical feedback.", "note": "The most useful response would be a real test. I would love to speak with growers, pest managers, agritech people, or anyone who knows field constraints. A small pilot conversation would tell me far more than general interest."}, {"num": 18, "title": "Not Just on Paper", "visual": "The route to use has already started.", "support": "Ceres AgriTech LINCAM EOI advice is underway, with software/IP information submitted through Bristol.", "note": "This is not just a slide exercise. I have already asked Bristol's commercialisation team about a Ceres AgriTech LINCAM Proof of Concept EOI, and I have submitted the software information form. That does not mean funding is secured. It means the route is real."}, {"num": 19, "title": "Next Step", "visual": "From showcase to pilot conversation.", "support": "One partner site, one baseline map, one evidence plan.", "note": "After this showcase, the practical next step is deliberately small: one partner site, one baseline map, and one evidence plan. The LINCAM route is useful because it asks exactly those questions: grower need, field evidence, and commercial fit."}, {"num": 20, "title": "Thank You", "visual": "One useful decision, made clearer.", "support": "Thanks to ECEF, my supervisor Luca Giuggioli, Bristol Innovations, and the Ceres AgriTech conversations.", "note": "So the final message is simple. BioPath takes a messy placement decision and makes it easier to discuss: here is the map, here are the coordinates, here is the evidence. Thank you to ECEF, Luca, Bristol Innovations, and the Ceres AgriTech conversations that helped move this toward practice."}];
+const STORAGE_KEY = 'biopath-ecef-festival-v3-slide';
+const STATE_KEY = 'biopath-ecef-festival-v3-state';
+const CHANNEL = 'biopath-ecef-festival-v3-channel';
+const SLIDE_SECONDS = 20;
+const syncChannel = 'BroadcastChannel' in window ? new BroadcastChannel(CHANNEL) : null;
+function readState() {
+  try { return JSON.parse(localStorage.getItem(STATE_KEY) || 'null') || {}; } catch { return {}; }
+}
+const initialState = readState();
+const requestedSlide = new URLSearchParams(location.search).get('slide');
+let index = Number(requestedSlide ?? initialState.index ?? localStorage.getItem(STORAGE_KEY) ?? 0);
+let slideStarted = Number(initialState.startedAt) || Date.now();
+const where = document.getElementById('where');
+const headerTitle = document.getElementById('header-title');
+const eyebrow = document.getElementById('eyebrow');
+const claim = document.getElementById('claim');
+const note = document.getElementById('note');
+const support = document.getElementById('support');
+const nextCard = document.getElementById('next-card');
+const queue = document.getElementById('queue');
+const timer = document.getElementById('timer');
+function saveIndex(value, startedAt = slideStarted) {
+  const state = { index: value, startedAt };
+  try {
+    localStorage.setItem(STORAGE_KEY, String(value));
+    localStorage.setItem(STATE_KEY, JSON.stringify(state));
+  } catch {}
+  try { syncChannel?.postMessage({ type: 'slide', ...state }); } catch {}
+}
+function renderQueue() {
+  queue.innerHTML = slides.map((slide, i) => '<div class="' + (i === index ? 'active' : '') + '">' + String(slide.num).padStart(2,'0') + '. ' + slide.title + '</div>').join('');
+}
+function show(i, broadcast = true, startedAt = Date.now()) {
+  index = Math.max(0, Math.min(slides.length - 1, Number(i) || 0));
+  slideStarted = Number(startedAt) || Date.now();
+  const slide = slides[index];
+  where.textContent = 'Slide ' + String(index + 1).padStart(2, '0') + ' / ' + slides.length;
+  headerTitle.textContent = slide.title;
+  eyebrow.textContent = slide.support;
+  claim.textContent = slide.visual;
+  note.textContent = slide.note;
+  support.textContent = slide.title + ' | ' + slide.note.split(/\s+/).length + ' words';
+  const next = slides[index + 1];
+  nextCard.textContent = next ? String(next.num).padStart(2,'0') + '. ' + next.visual : 'End';
+  renderQueue();
+  if (broadcast) saveIndex(index, slideStarted);
+}
+function tick() {
+  const elapsed = Math.floor((Date.now() - slideStarted) / 1000);
+  const remaining = Math.max(0, SLIDE_SECONDS - elapsed);
+  timer.textContent = '00:' + String(remaining).padStart(2, '0');
+}
+document.getElementById('prev').onclick = () => show(index - 1);
+document.getElementById('next').onclick = () => show(index + 1);
+document.getElementById('reset').onclick = () => { slideStarted = Date.now(); saveIndex(index, slideStarted); };
+window.addEventListener('storage', event => {
+  if (event.key === STATE_KEY && event.newValue !== null) {
+    try {
+      const state = JSON.parse(event.newValue);
+      show(Number(state.index), false, Number(state.startedAt));
+    } catch {}
+  }
+});
+syncChannel?.addEventListener('message', event => {
+  if (event.data?.type === 'slide') show(Number(event.data.index), false, Number(event.data.startedAt));
+});
+document.addEventListener('keydown', event => {
+  if (event.key === 'ArrowRight' || event.key === ' ' || event.key === 'PageDown') { event.preventDefault(); show(index + 1); }
+  if (event.key === 'ArrowLeft' || event.key === 'PageUp') { event.preventDefault(); show(index - 1); }
+  if (event.key.toLowerCase() === 't') { slideStarted = Date.now(); saveIndex(index, slideStarted); }
+});
+show(index, false, slideStarted);
+tick();
+setInterval(tick, 250);
+</script>
+</body>
+</html>

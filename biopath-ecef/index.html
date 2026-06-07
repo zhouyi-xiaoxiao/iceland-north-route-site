@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BioPath ECEF Festival Presentation V3 London Cuts Direction</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Bodoni+Moda:ital,wght@0,600;0,700;0,800;1,600;1,700;1,800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500;700&display=swap');
+  :root {
+    --ink:#18110D;
+    --ink2:#08352D;
+    --paper:#FAF6ED;
+    --paper2:#FFFDF8;
+    --paper3:#EFE8DC;
+    --line:#D8CCBA;
+    --muted:#62584E;
+    --deep:#062B24;
+    --accent:#8E3427;
+    --amber:#BF6E33;
+    --blue:#2D6F86;
+    --red:#B84B3F;
+    --mint:#C9DCCF;
+    --f-display:'Bodoni Moda','Bodoni 72','Didot','Georgia',serif;
+    --f-serif:'Instrument Serif','Iowan Old Style','Georgia',serif;
+    --f-sans:'Archivo','Avenir Next','Helvetica Neue',Arial,sans-serif;
+    --f-mono:'JetBrains Mono','SF Mono',ui-monospace,monospace;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; overflow:hidden; background:#031A15; font-family:var(--f-sans); }
+  .shell { width:100vw; height:100vh; display:grid; place-items:center; background:#031A15; }
+  .deck-wrap { width:min(100vw,177.777vh); height:min(56.25vw,100vh); position:relative; }
+  .deck { width:1280px; height:720px; transform-origin:top left; transform:scale(var(--scale,1)); position:absolute; inset:0 auto auto 0; }
+  .slide { position:absolute; inset:0; width:1280px; height:720px; opacity:0; pointer-events:none; overflow:hidden; transition:opacity 160ms ease; background:var(--paper); color:var(--ink); }
+  .slide.active { opacity:1; pointer-events:auto; }
+  .dark { background:var(--deep); color:var(--paper2); }
+  .meta { position:absolute; left:48px; top:34px; z-index:5; display:grid; gap:7px; padding-left:34px; }
+  .meta::before { content:""; position:absolute; left:0; top:1px; width:16px; height:16px; border:2px solid currentColor; border-radius:50%; opacity:.72; }
+  .meta span { font-family:var(--f-mono); font-size:12px; font-weight:700; color:inherit; text-transform:uppercase; letter-spacing:0; }
+  .meta small { font-family:var(--f-mono); font-size:11px; color:var(--muted); font-weight:700; }
+  .dark .meta small { color:#BDD2C8; }
+  .meta::after { content:""; width:168px; height:2px; background:var(--accent); margin-top:8px; }
+  .dark .meta::after { background:var(--mint); }
+  .folio { position:absolute; right:56px; top:37px; z-index:5; font-family:var(--f-mono); font-size:13px; font-weight:700; color:inherit; opacity:.68; }
+  .linkedin-mark { position:absolute; right:56px; bottom:38px; z-index:6; display:flex; align-items:baseline; gap:10px; font-family:var(--f-mono); font-size:14px; font-weight:800; color:var(--muted); text-transform:uppercase; }
+  .linkedin-mark span { color:var(--accent); }
+  .linkedin-mark b { color:var(--ink); font-weight:900; }
+  .dark .linkedin-mark { color:#AFC8BE; }
+  .dark .linkedin-mark span { color:var(--mint); }
+  .dark .linkedin-mark b { color:#EEF6F1; }
+  .s20 .linkedin-mark { display:none; }
+  .copy { position:absolute; left:72px; top:140px; width:560px; z-index:4; }
+  h1 { margin:0; font:800 58px/1.04 var(--f-sans); font-style:normal; letter-spacing:0; }
+  .s01 h1, .s02 h1, .s03 h1, .s04 h1, .s07 h1, .s13 h1, .s14 h1, .s19 h1, .s20 h1 {
+    font-family:var(--f-display);
+    font-style:italic;
+    line-height:1.08;
+  }
+  p { margin:28px 0 0; width:520px; color:var(--muted); font-size:23px; line-height:1.34; font-weight:700; }
+  .dark p { color:#D2E2D9; }
+  .cover-photo, .cover-photo img { position:absolute; inset:0; width:100%; height:100%; }
+  .cover-photo img { object-fit:cover; filter:saturate(.92) contrast(1.05); opacity:.52; }
+  .s01 { background:#041F19; }
+  .s01::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(3,26,21,.95),rgba(3,26,21,.64) 48%,rgba(3,26,21,.28)); }
+  .s01 .copy { width:690px; top:156px; }
+  .s01 h1 { font-size:84px; line-height:.92; }
+  .s01 p { width:560px; font-size:26px; }
+  .cover-id { position:absolute; left:72px; bottom:132px; z-index:4; display:grid; gap:8px; }
+  .cover-id b { font-family:var(--f-mono); font-size:13px; text-transform:uppercase; letter-spacing:0; color:var(--mint); }
+  .cover-id strong { display:block; color:var(--paper); font-family:var(--f-serif); font-size:34px; line-height:.96; font-style:italic; }
+  .cover-id span { display:block; color:#D2E2D9; font-size:21px; line-height:1.2; font-weight:750; }
+  .cover-rule { position:absolute; left:72px; bottom:92px; width:470px; height:3px; background:linear-gradient(90deg,var(--accent),var(--blue)); z-index:4; }
+  .portrait-stage { position:absolute; left:642px; top:84px; width:598px; height:500px; z-index:3; }
+  .portrait-stage img { position:absolute; right:8px; top:0; width:352px; height:458px; object-fit:cover; border:1px solid var(--line); box-shadow:0 24px 72px rgba(34,20,9,.12); }
+  .strawberries { position:absolute; left:0; top:60px; width:300px; height:190px; }
+  .strawberries::before { content:""; position:absolute; inset:18px 0 auto 0; height:136px; background:repeating-linear-gradient(to bottom,transparent 0 40px,var(--line) 40px 43px); }
+  .strawberries i { position:absolute; left:calc(var(--c)*35px + var(--o)); top:calc(var(--r)*43px); width:16px; height:16px; border-radius:50%; background:var(--red); box-shadow:0 -8px 0 -4px var(--ink); }
+  .origin-caption { position:absolute; left:18px; top:326px; width:238px; font-weight:900; }
+  .origin-caption b { display:block; color:var(--accent); font-family:var(--f-mono); font-size:13px; text-transform:uppercase; margin-bottom:12px; }
+  .origin-caption span { display:block; font-family:var(--f-serif); font-size:30px; line-height:1.05; font-style:italic; }
+  .trap-stage { position:absolute; right:56px; top:104px; width:590px; height:462px; border:1px solid var(--line); box-shadow:0 24px 74px rgba(34,20,9,.08); background:var(--paper2); }
+  .trap-stage svg { display:block; width:100%; height:100%; }
+  .trap-stage text { font-family:var(--f-mono); font-size:14px; font-weight:900; fill:var(--ink); text-transform:uppercase; letter-spacing:0; }
+  .trap-stage .field-band { fill:#E8E0D0; opacity:.72; }
+  .trap-stage .crop-row { fill:none; stroke:#A97E51; stroke-width:7; stroke-linecap:round; opacity:.34; }
+  .trap-stage .crop-row-back { stroke-width:5; opacity:.22; }
+  .trap-stage .plant-bed path { fill:#2F6B4E; opacity:.94; }
+  .trap-stage .plant-bed circle { fill:var(--red); stroke:#6C1D17; stroke-width:2; }
+  .trap-stage .risk-note rect, .trap-stage .trap-steps rect { fill:rgba(255,249,239,.74); stroke:var(--ink); stroke-width:2; }
+  .trap-stage .risk-note text { font-size:12px; }
+  .trap-stage .movement-shadow { fill:none; stroke:#FFF9EF; stroke-width:15; stroke-linecap:round; opacity:.82; }
+  .trap-stage .movement-route { fill:none; stroke:var(--accent); stroke-width:7; stroke-linecap:round; stroke-dasharray:8 13; animation:trapRoute 1.7s linear infinite; }
+  .trap-stage .pest-icons ellipse { fill:var(--ink); }
+  .trap-stage .pest-icons line { stroke:var(--ink); stroke-width:4; stroke-linecap:round; }
+  .trap-stage .scent-wave { fill:none; stroke:var(--accent); stroke-width:5; stroke-linecap:round; opacity:.7; animation:trapScent 2.2s ease-in-out infinite; transform-origin:430px 175px; }
+  .trap-stage .wave2 { animation-delay:.32s; }
+  .trap-stage .wave3 { animation-delay:.64s; }
+  .trap-stage .scent-field text { fill:var(--accent); font-size:12px; }
+  .trap-stage .trap-hero line { stroke:var(--ink); stroke-width:6; stroke-linecap:round; fill:none; }
+  .trap-stage .count-box path { stroke:var(--accent); stroke-width:5; stroke-linecap:round; fill:none; }
+  .trap-stage .trap-hero > path { fill:none; stroke:var(--ink); stroke-width:5; stroke-linecap:round; }
+  .trap-stage .trap-hero rect { fill:url(#sticky-yellow); stroke:var(--ink); stroke-width:6; }
+  .trap-stage .trap-hero .grid { fill:none; stroke:#7E5D22; stroke-width:2.1; opacity:.45; }
+  .trap-stage .capture-dots ellipse { fill:var(--ink); animation:trapBlink 2.4s steps(2,end) infinite; }
+  .trap-stage .capture-dots ellipse:nth-child(2) { animation-delay:.35s; }
+  .trap-stage .capture-dots ellipse:nth-child(3) { animation-delay:.7s; }
+  .trap-stage .capture-dots ellipse:nth-child(4) { animation-delay:1.05s; }
+  .trap-stage .trap-hero text, .trap-stage .delta-trap text { font-size:12px; fill:var(--ink); }
+  .trap-stage .count-box rect { fill:#0F3D34; stroke:var(--ink); stroke-width:4; }
+  .trap-stage .count-box text { fill:var(--paper); font-size:12px; }
+  .trap-stage .count-box .count-number { font-family:var(--f-display); font-size:45px; font-style:italic; }
+  .trap-stage .delta-trap path:first-child { fill:#FFF7DD; stroke:var(--ink); stroke-width:5; }
+  .trap-stage .delta-trap path:nth-child(2) { fill:#EED8A3; stroke:var(--ink); stroke-width:5; stroke-linejoin:round; }
+  .trap-stage .delta-trap circle { fill:var(--accent); stroke:var(--ink); stroke-width:3; }
+  .trap-stage .trap-steps text:first-of-type { font-size:17px; fill:var(--accent); }
+  .trap-stage .trap-steps text:nth-of-type(2) { font-size:11px; }
+  .trap-key { position:absolute; left:22px; right:22px; bottom:20px; display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .trap-key b { background:#0F3D34; color:var(--paper); padding:11px 10px; font-family:var(--f-mono); font-size:13px; text-transform:uppercase; text-align:center; }
+  @keyframes trapRoute { to { stroke-dashoffset:-42; } }
+  @keyframes trapScent { 0%,100% { opacity:.38; transform:scale(.96); } 50% { opacity:.9; transform:scale(1.04); } }
+  @keyframes trapBlink { 0%,35% { opacity:.38; } 36%,100% { opacity:1; } }
+  .judgement-chain { position:absolute; right:70px; top:176px; display:flex; align-items:stretch; gap:18px; }
+  .judgement-chain div { width:146px; min-height:185px; background:var(--paper2); border-top:3px solid var(--ink); padding:22px; display:grid; align-content:start; gap:16px; box-shadow:0 14px 40px rgba(34,20,9,.06); }
+  .judgement-chain div:nth-of-type(2) { border-color:var(--blue); background:#E2EEE9; }
+  .judgement-chain div:nth-of-type(3) { border-color:var(--accent); background:#F2E6D9; }
+  .judgement-chain b { font-family:var(--f-serif); font-size:31px; font-style:italic; }
+  .judgement-chain span { font-size:15px; color:var(--muted); font-weight:700; }
+  .judgement-chain em { width:32px; margin-top:82px; height:2px; background:var(--accent); }
+  .metres { position:absolute; right:74px; top:118px; width:470px; height:430px; border-left:3px solid var(--accent); padding-left:34px; }
+  .metres strong { display:block; font-family:var(--f-display); font-style:italic; font-size:86px; line-height:.88; margin-bottom:36px; }
+  .metres div { display:flex; gap:18px; align-items:baseline; border-top:1px solid var(--line); padding:17px 0; }
+  .metres b { width:150px; font-family:var(--f-serif); font-style:italic; font-size:30px; }
+  .metres span { color:var(--muted); font-size:19px; font-weight:750; }
+  .s05 .copy { width:470px; top:132px; }
+  .s05 h1 { font-size:52px; }
+  .s05 p { width:440px; font-size:23px; }
+  .movement-stage { position:absolute; right:52px; top:118px; width:560px; height:372px; background:var(--paper2); border:1px solid var(--line); display:grid; place-items:center; box-shadow:0 24px 80px rgba(0,0,0,.18); }
+  .movement-stage img { width:100%; height:100%; object-fit:contain; }
+  .movement-stage span { position:absolute; left:22px; bottom:-38px; font-size:18px; font-weight:850; color:var(--mint); }
+  .translate-stage, .language-stage { position:absolute; right:68px; bottom:155px; display:flex; gap:18px; align-items:center; }
+  .translate-stage div, .language-stage div { width:158px; height:100px; padding:19px; background:var(--paper2); border:1px solid var(--line); box-shadow:0 14px 40px rgba(34,20,9,.05); }
+  .translate-stage small, .language-stage small { display:block; color:var(--accent); text-transform:uppercase; font-family:var(--f-mono); font-weight:700; font-size:11px; margin-bottom:10px; }
+  .translate-stage b, .language-stage b { font-family:var(--f-serif); font-size:27px; line-height:1.02; font-style:italic; }
+  .translate-stage i, .language-stage i, .pilot-path i, .route-stage i { color:var(--accent); font-style:normal; font-size:31px; font-weight:900; }
+  .deadline-path { position:absolute; right:72px; bottom:142px; width:610px; display:grid; grid-template-columns:repeat(4,1fr); gap:22px; align-items:end; }
+  .deadline-path::before { content:""; position:absolute; left:42px; right:42px; top:40px; height:3px; background:var(--line); }
+  .deadline-path div { text-align:center; position:relative; z-index:1; }
+  .deadline-path div::before { content:""; display:block; width:36px; height:36px; border-radius:50%; background:var(--ink); margin:0 auto 16px; }
+  .deadline-path .hot::before { background:var(--accent); }
+  .deadline-path b { font-family:var(--f-serif); font-style:italic; font-size:27px; }
+  .deadline-path span { display:block; color:var(--muted); font-size:16px; font-weight:750; margin-top:8px; }
+  .workflow-v2 { position:absolute; left:72px; right:72px; bottom:92px; display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+  .workflow-v2 div { min-height:130px; background:var(--paper2); border-top:3px solid var(--ink); padding:20px 22px; box-shadow:0 12px 35px rgba(34,20,9,.04); }
+  .workflow-v2 div:nth-child(2) { border-color:var(--blue); }
+  .workflow-v2 div:nth-child(3) { border-color:var(--accent); }
+  .workflow-v2 div:nth-child(4) { border-color:var(--red); }
+  .workflow-v2 b { display:block; color:var(--muted); font-size:18px; margin-bottom:12px; }
+  .workflow-v2 strong { display:block; font-family:var(--f-serif); font-style:italic; font-size:34px; }
+  .workflow-v2 span { display:block; color:var(--muted); font-weight:750; font-size:16px; margin-top:10px; }
+  .s08 .copy { top:128px; }
+  .prototype-v2 { position:absolute; right:72px; top:130px; width:545px; display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .prototype-v2 div { background:#0D3B32; padding:22px; min-height:100px; }
+  .prototype-v2 div:nth-child(2) { background:var(--blue); }
+  .prototype-v2 .accent { background:var(--accent); }
+  .prototype-v2 b { display:block; font-family:var(--f-serif); font-style:italic; font-size:32px; }
+  .prototype-v2 span { color:#D7E6DF; font-size:16px; font-weight:750; }
+  .prototype-v2 pre { grid-column:1/3; margin:8px 0 0; background:#061F1B; border:1px solid #346E61; padding:22px; color:#DCEAE4; font:700 21px/1.35 var(--f-mono); }
+  .map-stage { position:absolute; right:80px; top:132px; width:560px; text-align:center; font-weight:900; }
+  .map-stage img { width:100%; max-height:380px; object-fit:contain; }
+  .map-stage span { display:block; margin-top:16px; font-size:20px; }
+  .heat-stage { position:absolute; left:70px; top:120px; width:760px; height:390px; }
+  .heat-stage img { width:100%; height:100%; object-fit:contain; }
+  .heat-stage div { position:absolute; left:785px; top:312px; display:grid; gap:13px; width:280px; }
+  .heat-stage b { border:1px solid var(--mint); background:#0E4A3E; padding:13px 15px; font-size:18px; font-weight:800; }
+  .s11 .copy { left:850px; top:140px; width:350px; }
+  .s11 h1 { font-size:45px; }
+  .s11 p { width:310px; font-size:22px; }
+  .metric-stage { position:absolute; right:90px; top:150px; display:grid; gap:20px; width:430px; }
+  .metric-stage div { background:var(--paper2); border-left:3px solid var(--ink); padding:22px 26px; box-shadow:0 12px 35px rgba(34,20,9,.04); }
+  .metric-stage div:nth-child(2) { border-color:var(--blue); }
+  .metric-stage div:nth-child(3) { border-color:var(--accent); }
+  .metric-stage span { color:var(--muted); font-size:18px; font-weight:800; }
+  .metric-stage b { float:right; font-family:var(--f-mono); font-size:32px; }
+  .trust-stage { position:absolute; right:80px; top:118px; width:520px; height:420px; }
+  .trust-stage strong { position:absolute; inset:92px auto auto 45px; font-family:var(--f-display); font-style:italic; font-size:86px; color:#E6DED0; }
+  .trust-stage div { position:absolute; width:230px; background:var(--paper2); padding:20px; border:1px solid var(--line); box-shadow:0 14px 40px rgba(34,20,9,.06); }
+  .trust-stage div:nth-of-type(1) { left:0; top:0; }
+  .trust-stage div:nth-of-type(2) { right:0; top:142px; background:#DDECE5; }
+  .trust-stage div:nth-of-type(3) { left:40px; bottom:0; background:#E8F0F0; }
+  .trust-stage b { font-family:var(--f-serif); font-style:italic; font-size:27px; }
+  .trust-stage span { display:block; margin-top:10px; color:var(--muted); font-size:15px; font-weight:750; }
+  .s14 .copy { top:126px; width:520px; }
+  .s14 h1 { font-size:52px; }
+  .s14 .language-stage { right:72px; bottom:168px; gap:22px; }
+  .s14 .language-stage div { width:178px; height:118px; padding:22px; box-shadow:0 16px 40px rgba(36,26,10,.08); }
+  .s14 .language-stage b { font-size:27px; }
+  .promise-stage { position:absolute; inset:150px 0 auto; height:330px; display:grid; justify-items:center; align-content:start; gap:27px; }
+  .promise-stage b { font-family:var(--f-display); font-style:italic; font-size:70px; line-height:.9; font-weight:800; }
+  .promise-stage b:nth-child(2) { color:var(--accent); }
+  .promise-stage b:nth-child(3) { color:#86C9DE; }
+  .s15 .copy { top:562px; width:680px; }
+  .s15 h1 { display:none; }
+  .s15 p { margin:0; width:680px; font-size:23px; }
+  .rules-stage, .ask-stage { position:absolute; right:84px; top:166px; width:470px; display:grid; gap:18px; }
+  .rules-stage div, .ask-stage div { background:var(--paper2); border-left:3px solid var(--ink); padding:22px 26px; box-shadow:0 12px 35px rgba(34,20,9,.04); }
+  .rules-stage div:nth-child(2), .ask-stage div:nth-child(2) { border-color:var(--blue); background:#DDECE5; }
+  .rules-stage div:nth-child(3), .ask-stage div:nth-child(3) { border-color:var(--accent); background:#EFE7DD; }
+  .rules-stage b, .ask-stage b { display:block; font-family:var(--f-serif); font-style:italic; font-size:34px; }
+  .rules-stage span, .ask-stage span { display:block; color:var(--muted); font-size:17px; font-weight:750; margin-top:8px; }
+  .status-stage { position:absolute; right:80px; top:140px; display:grid; grid-template-columns:1fr 1fr; gap:22px; width:560px; }
+  .status-stage div { min-height:305px; padding:24px; background:var(--paper2); border-top:3px solid var(--ink); box-shadow:0 12px 35px rgba(34,20,9,.04); }
+  .status-stage div:nth-child(2) { border-color:var(--accent); background:#EFE7DD; }
+  .status-stage small { text-transform:uppercase; color:var(--muted); font-family:var(--f-mono); font-weight:700; font-size:12px; }
+  .status-stage b { display:block; margin-top:24px; font-family:var(--f-serif); font-style:italic; font-size:34px; }
+  .route-stage { position:absolute; left:72px; right:72px; bottom:104px; display:flex; align-items:stretch; gap:20px; }
+  .route-stage div { flex:1; min-height:148px; background:var(--paper2); border-top:3px solid var(--ink); padding:23px 25px; box-shadow:0 18px 48px rgba(34,20,9,.07); }
+  .route-stage .hot { border-color:var(--accent); background:#EFE7DD; }
+  .route-stage small { display:block; color:var(--muted); font-family:var(--f-mono); font-weight:800; font-size:12px; text-transform:uppercase; margin-bottom:12px; }
+  .route-stage b { display:block; font-family:var(--f-serif); font-style:italic; font-size:35px; line-height:.98; }
+  .route-stage span { display:block; color:var(--muted); font-size:17px; line-height:1.2; font-weight:750; margin-top:12px; }
+  .route-stage i { display:grid; align-items:center; }
+  .route-foot { position:absolute; left:72px; bottom:55px; width:820px; color:var(--accent); font-family:var(--f-mono); font-size:16px; text-transform:uppercase; font-weight:800; }
+  .pilot-path { position:absolute; right:70px; top:310px; display:flex; gap:16px; align-items:center; }
+  .s19 .pilot-path { top:370px; }
+  .pilot-path div { width:118px; height:78px; display:grid; place-items:center; background:var(--ink); color:var(--paper2); }
+  .pilot-path div:first-child { background:var(--accent); }
+  .pilot-path b { font-family:var(--f-serif); font-style:italic; font-size:24px; }
+  .close-v2 { position:absolute; right:90px; top:122px; width:420px; display:grid; gap:20px; }
+  .close-v2 div { height:112px; border:1px solid var(--mint); background:#0D3B32; display:flex; align-items:center; gap:38px; padding:0 42px; }
+  .close-v2 b { font-family:var(--f-mono); font-size:34px; color:var(--mint); }
+  .close-v2 span { font-family:var(--f-serif); font-style:italic; font-size:38px; font-weight:800; }
+  .thanks-stage { position:absolute; right:82px; top:116px; width:472px; border:1px solid rgba(201,220,207,.38); padding:34px; background:linear-gradient(180deg,#0D3B32,#07271F); box-shadow:0 28px 90px rgba(0,0,0,.26); }
+  .thanks-stage strong { display:block; font-family:var(--f-display); font-style:italic; font-size:76px; line-height:.92; margin-bottom:28px; }
+  .thanks-stage div { display:grid; gap:12px; }
+  .thanks-stage b { border-top:1px solid rgba(201,220,207,.24); padding-top:12px; color:#DCE9E3; font-size:21px; line-height:1.1; font-weight:800; }
+  .qr-stage { position:absolute; left:72px; bottom:70px; width:500px; display:grid; grid-template-columns:168px 1fr; grid-template-rows:auto auto; column-gap:24px; align-items:center; border:1px solid rgba(201,220,207,.32); padding:18px; background:rgba(6,31,27,.62); }
+  .qr-stage img { grid-row:1 / 3; width:168px; height:168px; background:#fff; padding:10px; object-fit:contain; }
+  .qr-stage span { grid-column:2; align-self:end; color:var(--mint); font-family:var(--f-mono); font-size:15px; text-transform:uppercase; font-weight:900; }
+  .qr-stage b { grid-column:2; align-self:start; display:block; margin-top:10px; color:var(--paper); font-size:28px; line-height:1.05; font-weight:900; }
+  .hud { position:fixed; left:18px; right:18px; bottom:12px; z-index:50; display:flex; justify-content:space-between; color:#D7E4DE; font-family:var(--f-mono); font-size:12px; pointer-events:none; }
+  .bar { position:fixed; left:0; bottom:0; width:100%; height:5px; background:rgba(255,255,255,.12); z-index:51; }
+  .bar i { display:block; height:100%; width:5%; background:var(--accent); }
+  .help { display:none; position:fixed; top:16px; left:50%; transform:translateX(-50%); z-index:60; background:rgba(6,37,30,.94); color:white; padding:10px 14px; font-size:14px; }
+</style>
+</head>
+<body>
+<div class="shell"><div class="deck-wrap"><main class="deck" id="deck">
+            <section class="slide dark s01" data-index="0">
+              
+        <div class="cover-photo"><img src="assets/image.jpeg" alt="farm site"></div>
+        <div class="cover-id"><b>who I am</b><strong>Xiaoxiao Zhouyi</strong><span>movement modelling -> crop protection decisions</span></div>
+        <div class="cover-rule"></div>
+        
+              <div class="meta"><span>Motive</span><small>why this decision matters</small></div>
+              <div class="folio">01/20</div>
+              <div class="linkedin-mark"><span>LinkedIn</span><b>Xiaoxiao Zhouyi</b></div>
+              <div class="copy">
+                <h1>Map in. Traps out. Proof attached.</h1>
+                <p>Turning movement research into a pest-placement decision.</p>
+              </div>
+            </section>
+            
+            <section class="slide light s02" data-index="1">
+              
+        <div class="portrait-stage">
+          <div class="strawberries"><i style="--r:0;--c:0;--o:0px"></i><i style="--r:0;--c:1;--o:0px"></i><i style="--r:0;--c:2;--o:0px"></i><i style="--r:0;--c:3;--o:0px"></i><i style="--r:0;--c:4;--o:0px"></i><i style="--r:0;--c:5;--o:0px"></i><i style="--r:0;--c:6;--o:0px"></i><i style="--r:0;--c:7;--o:0px"></i><i style="--r:0;--c:8;--o:0px"></i><i style="--r:1;--c:0;--o:16px"></i><i style="--r:1;--c:1;--o:16px"></i><i style="--r:1;--c:2;--o:16px"></i><i style="--r:1;--c:3;--o:16px"></i><i style="--r:1;--c:4;--o:16px"></i><i style="--r:1;--c:5;--o:16px"></i><i style="--r:1;--c:6;--o:16px"></i><i style="--r:1;--c:7;--o:16px"></i><i style="--r:1;--c:8;--o:16px"></i><i style="--r:2;--c:0;--o:0px"></i><i style="--r:2;--c:1;--o:0px"></i><i style="--r:2;--c:2;--o:0px"></i><i style="--r:2;--c:3;--o:0px"></i><i style="--r:2;--c:4;--o:0px"></i><i style="--r:2;--c:5;--o:0px"></i><i style="--r:2;--c:6;--o:0px"></i><i style="--r:2;--c:7;--o:0px"></i><i style="--r:2;--c:8;--o:0px"></i><i style="--r:3;--c:0;--o:16px"></i><i style="--r:3;--c:1;--o:16px"></i><i style="--r:3;--c:2;--o:16px"></i><i style="--r:3;--c:3;--o:16px"></i><i style="--r:3;--c:4;--o:16px"></i><i style="--r:3;--c:5;--o:16px"></i><i style="--r:3;--c:6;--o:16px"></i><i style="--r:3;--c:7;--o:16px"></i><i style="--r:3;--c:8;--o:16px"></i></div>
+          <img src="assets/image2.jpeg" alt="speaker portrait">
+          <div class="origin-caption"><b>why I care</b><span>family strawberries<br>to field decisions</span></div>
+        </div>
+        
+              <div class="meta"><span>Motive</span><small>why this decision matters</small></div>
+              <div class="folio">02/20</div>
+              <div class="linkedin-mark"><span>LinkedIn</span><b>Xiaoxiao Zhouyi</b></div>
+              <div class="copy">
+                <h1>This started close to home.</h1>
+                <p>Movement modelling is my route in; my grandfather&#x27;s strawberries are why it feels personal.</p>
+              </div>
+            </section>
+            
+            <section class="slide light s03" data-index="2">
+              
+        <div class="trap-stage trap-stage-real trap-story" aria-label="vector diagram showing how crop traps attract, catch, and count pest movement">
+          <svg viewBox="0 0 560 430" role="img">
+            <defs>
+              <linearGradient id="trap-field" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#FBF2E3"/>
+                <stop offset=".58" stop-color="#E8E0D0"/>
+                <stop offset="1" stop-color="#DDECE5"/>
+              </linearGradient>
+              <linearGradient id="sticky-yellow" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#F9D15D"/>
+                <stop offset="1" stop-color="#E9A928"/>
+              </linearGradient>
+              <marker id="arrow-head" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#BF6E33"/>
+              </marker>
+              <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="9" stdDeviation="8" flood-color="#21150D" flood-opacity=".18"/>
+              </filter>
+            </defs>
+            <rect x="0" y="0" width="560" height="430" rx="0" fill="url(#trap-field)"/>
+            <rect class="field-band" x="0" y="265" width="560" height="165"/>
+            <path class="crop-row crop-row-back" d="M42 276 C126 242 194 292 268 254 C348 212 434 284 528 244"/>
+            <path class="crop-row" d="M18 315 C104 278 174 334 252 292 C326 252 413 318 542 282"/>
+            <path class="crop-row" d="M16 357 C110 318 206 376 292 334 C378 294 456 366 544 326"/>
+            <g class="plant-bed">
+              <g transform="translate(72 316)"><path d="M0 0 C-17 -28 -43 -24 -53 -6 C-29 -8 -14 2 0 0"/><path d="M0 0 C18 -30 46 -23 52 -4 C29 -8 13 3 0 0"/><circle cx="3" cy="13" r="7"/></g>
+              <g transform="translate(146 294)"><path d="M0 0 C-17 -28 -43 -24 -53 -6 C-29 -8 -14 2 0 0"/><path d="M0 0 C18 -30 46 -23 52 -4 C29 -8 13 3 0 0"/><circle cx="4" cy="13" r="7"/></g>
+              <g transform="translate(232 316)"><path d="M0 0 C-17 -28 -43 -24 -53 -6 C-29 -8 -14 2 0 0"/><path d="M0 0 C18 -30 46 -23 52 -4 C29 -8 13 3 0 0"/><circle cx="3" cy="13" r="7"/></g>
+              <g transform="translate(440 307)"><path d="M0 0 C-17 -28 -43 -24 -53 -6 C-29 -8 -14 2 0 0"/><path d="M0 0 C18 -30 46 -23 52 -4 C29 -8 13 3 0 0"/><circle cx="3" cy="13" r="7"/></g>
+            </g>
+
+            <g class="risk-note">
+              <rect x="28" y="34" width="170" height="54"/>
+              <text x="47" y="57">pest movement</text>
+              <text x="47" y="76">inside crop rows</text>
+            </g>
+
+            <path class="movement-shadow" d="M72 140 C152 76 228 94 291 157 C334 199 390 198 426 162"/>
+            <path class="movement-route" d="M72 140 C152 76 228 94 291 157 C334 199 390 198 426 162"/>
+            <g class="pest-icons">
+              <g transform="translate(98 120) rotate(-18)"><ellipse cx="0" cy="0" rx="10" ry="6"/><line x1="-9" y1="-3" x2="-20" y2="-11"/><line x1="9" y1="-3" x2="20" y2="-11"/></g>
+              <g transform="translate(216 112) rotate(18)"><ellipse cx="0" cy="0" rx="10" ry="6"/><line x1="-9" y1="-3" x2="-20" y2="-11"/><line x1="9" y1="-3" x2="20" y2="-11"/></g>
+              <g transform="translate(337 187) rotate(-8)"><ellipse cx="0" cy="0" rx="10" ry="6"/><line x1="-9" y1="-3" x2="-20" y2="-11"/><line x1="9" y1="-3" x2="20" y2="-11"/></g>
+            </g>
+
+            <g class="scent-field">
+              <path class="scent-wave" d="M430 148 C393 116 350 106 310 121"/>
+              <path class="scent-wave wave2" d="M446 174 C405 145 363 141 323 160"/>
+              <path class="scent-wave wave3" d="M436 202 C397 186 358 188 323 213"/>
+              <text x="320" y="103">lure scent</text>
+            </g>
+
+            <g class="trap-hero" filter="url(#soft-shadow)">
+              <line x1="444" y1="91" x2="444" y2="334"/>
+              <path d="M397 110 C417 88 471 88 491 110"/>
+              <rect x="384" y="114" width="122" height="168" rx="12"/>
+              <path class="grid" d="M408 114 v168 M432 114 v168 M456 114 v168 M480 114 v168 M384 148 h122 M384 182 h122 M384 216 h122 M384 250 h122"/>
+              <g class="capture-dots">
+                <ellipse cx="412" cy="154" rx="8" ry="5"/><ellipse cx="462" cy="172" rx="8" ry="5"/><ellipse cx="438" cy="226" rx="8" ry="5"/><ellipse cx="484" cy="252" rx="8" ry="5"/>
+              </g>
+            </g>
+
+            <g class="count-box" filter="url(#soft-shadow)">
+              <rect x="52" y="172" width="142" height="86"/>
+              <text x="73" y="199">captures</text>
+              <text class="count-number" x="74" y="238">12</text>
+              <path d="M384 202 C316 229 250 230 194 215" marker-end="url(#arrow-head)"/>
+            </g>
+
+            <g class="delta-trap" filter="url(#soft-shadow)">
+              <path d="M286 268 L372 268 L348 322 L310 322 Z"/>
+              <path d="M286 268 L329 232 L372 268"/>
+              <circle cx="329" cy="291" r="11"/>
+            </g>
+
+            <g class="trap-steps">
+              <g><rect x="215" y="34" width="89" height="47"/><text x="236" y="55">1</text><text x="239" y="73">attract</text></g>
+              <g><rect x="316" y="34" width="84" height="47"/><text x="337" y="55">2</text><text x="338" y="73">catch</text></g>
+              <g><rect x="412" y="34" width="94" height="47"/><text x="434" y="55">3</text><text x="434" y="73">count</text></g>
+            </g>
+          </svg>
+          <div class="trap-key">
+            <b>lure</b><b>sticky card</b><b>evidence point</b>
+          </div>
+        </div>
+        
+              <div class="meta"><span>Motive</span><small>why this decision matters</small></div>
+              <div class="folio">03/20</div>
+              <div class="linkedin-mark"><span>LinkedIn</span><b>Xiaoxiao Zhouyi</b></div>
+              <div class="copy">
+                <h1>A trap is where movement becomes evidence.</h1>
+                <p>Lures attract, sticky cards catch, and monitoring points count what is happening in the crop row.</p>
+              </div>
+            </section>
+            
+            <section class="slide light s04" data-index="3">
+              
+        <div class="metres">
+          <strong>a few<br>metres</strong>
+          <div><b>Labour</b><span>checks</span></div>
+          <div><b>Chemicals</b><span>pressure</span></div>
+          <div><b>Confidence</b><span>explanation</span></div>
+        </div>
+        
+              <div class="meta"><span>Motive</span><small>why this decision matters</small></div>
+              <div class="folio">04/20</div>
+              <div class="linkedin-mark"><span>LinkedIn</span><b>Xiaoxiao Zhouyi</b></div>
+              <div class="copy">
+                <h1>A few metres can change the work that follows.</h1>
+                <p>Better placement can reduce wasted checks, chemical pressure, and weak explanations.</p>
+              </div>
+            </section>
+            
+            <section class="slide dark s05" data-index="4">
+              <div class="movement-stage"><img src="assets/image.gif" alt="animated movement paths"><span>movement changes when space has structure</span></div>
+              <div class="meta"><span>Translation</span><small>from movement model to user action</small></div>
+              <div class="folio">05/20</div>
+              <div class="linkedin-mark"><span>LinkedIn</span><b>Xiaoxiao Zhouyi</b></div>
+              <div class="copy">
+                <h1>Movement is uncertain. The environment shapes it.</h1>
+                <p>Encounters are not random once space has structure.</p>
+              </div>
+            </section>
+            
+            <section class="slide light s06" data-index="5">
+              
+        <div class="translate-stage">
+          <div><small>research</small><b>movement lens</b></div>
+          <i>-></i>
+          <div><small>algorithm</small><b>search placements</b></div>
+          <i>-></i>
+          <div><small>user</small><b>decision + proof</b></div>
+        </div>
+        
+              <div class="meta"><span>Translation</span><small>from movement model to user action</small></div>
+              <div class="folio">06/20</div>
+              <div class="linkedin-mark"><span>LinkedIn</span><b>Xiaoxiao Zhouyi</b></div>
+              <div class="copy">
+                <h1>ECEF moved the model toward a user decision.</h1>
+                <p>A clever equation is not enough; someone has to act on the answer.</p>
+              </div>
+            </section>
+            
+            <section class="slide light s07" data-index="6">
+              
+        <div class="deadline-path">
+          <div><b>Idea</b><span>research</span></div>
+          <div><b>ECEF</b><span>pressure</span></div>
+          <div class="hot"><b>Demo</b><span>visible</span></div>
+          <div><b>Pilot</b><span>next</span></div>
+        </div>
+        
+              <div class="meta"><span>Translation</span><small>from movement model to user action</small></div>
+              <div class="folio">07/20</div>
+              <div class="linkedin-mark"><span>LinkedIn</span><b>Xiaoxiao Zhouyi</b></div>
+              <div class="copy">
+                <h1>The fellowship made the idea visible.</h1>
+                <p>User, evidence, prototype, and story all had to become concrete.</p>
+              </div>
+            </section>
+            
+            <section class="slide light s08" data-index="7">
+              
+        <div class="workflow-v2">
+          <div><b>01</b><strong>Map</strong><span>site and barriers</span></div>
+          <div><b>02</b><strong>Budget</strong><span>number of traps</span></div>
+          <div><b>03</b><strong>Solve</strong><span>ranked locations</span></div>
+          <div><b>04</b><strong>Proof</strong><span>benchmark attached</span></div>
+        </div>
+        
+              <div class="meta"><span>Translation</span><small>from movement model to user action</small></div>
+              <div class="folio">08/20</div>
+              <div class="linkedin-mark"><span>LinkedIn</span><b>Xiaoxiao Zhouyi</b></div>
+              <div class="copy">
+                <h1>A simple workflow people can question.</h1>
+                <p>Map, budget, coordinates, proof: each step should be explainable.</p>
+              </div>
+            </section>
+            
+            <section class="slide dark s09" data-index="8">
+              
+        <div class="prototype-v2">
+          <div><b>solver</b><span>coordinates</span></div>
+          <div><b>API</b><span>workflow proof</span></div>
+          <div class="accent"><b>web demo</b><span>explainable</span></div>
+          <div><b>artifacts</b><span>saved evidence</span></div>
+          <pre>$ biopath solve --map site.json
+> ranked trap plan
+> benchmark artifact saved</pre>
+        </div>
+        
+              <div class="meta"><span>Proof</span><small>prototype and evidence</small></div>
+              <div class="folio">09/20</div>
+              <div class="linkedin-mark"><span>LinkedIn</span><b>Xiaoxiao Zhouyi</b></div>
+              <div class="copy">
+                <h1>The prototype makes the story concrete.</h1>
+                <p>Solver, API, web demo, and saved run outputs make the workflow tangible.</p>
+              </div>
+            </section>
+            
+            <section class="slide light s10" data-index="9">
+              <div class="map-stage"><img src="assets/image.png" alt="synthetic geometry"><span>walkable areas + barriers</span></div>
+              <div class="meta"><span>Proof</span><small>prototype and evidence</small></div>
+              <div class="folio">10/20</div>
+              <div class="linkedin-mark"><span>LinkedIn</span><b>Xiaoxiao Zhouyi</b></div>
+              <div class="copy">
+                <h1>The map makes the assumptions visible.</h1>
+                <p>A synthetic site lets us discuss the logic without private field data.</p>
+              </div>
+            </section>
+            
+            <section class="slide dark s11" data-index="10">
+              <div class="heat-stage"><img src="assets/image2.png" alt="heatmap"><div><b>6 traps</b><b>risk prior</b><b>testable locations</b></div></div>
+              <div class="meta"><span>Proof</span><small>prototype and evidence</small></div>
+              <div class="folio">11/20</div>
+              <div class="linkedin-mark"><span>LinkedIn</span><b>Xiaoxiao Zhouyi</b></div>
+              <div class="copy">
+                <h1>Coordinates, not just a picture.</h1>
+                <p>The decision shifts from gut feel alone to a placement that can be tested.</p>
+              </div>
+            </section>
+            
+            <section class="slide light s12" data-index="11">
+              
+        <div class="metric-stage">
+          <div><span>Capture score</span><b>0.5875</b></div>
+          <div><span>Mean distance</span><b>4.34 m</b></div>
+          <div><span>P95 distance</span><b>10 m</b></div>
+        </div>
+        
+              <div class="meta"><span>Proof</span><small>prototype and evidence</small></div>
+              <div class="folio">12/20</div>
+              <div class="linkedin-mark"><span>LinkedIn</span><b>Xiaoxiao Zhouyi</b></div>
+              <div class="copy">
+                <h1>Early evidence turns the next test specific.</h1>
+                <p>Demo metrics are not the finish line; they define what a pilot should measure.</p>
+              </div>
+            </section>
+            
+            <section class="slide light s13" data-index="12">
+              
+        <div class="trust-stage">
+          <strong>TRUST</strong>
+          <div><b>Can it work?</b><span>technical feasibility</span></div>
+          <div><b>Who trusts it?</b><span>workflow evidence</span></div>
+          <div><b>Will it repeat?</b><span>business model</span></div>
+        </div>
+        
+              <div class="meta"><span>Market</span><small>trust and route to use</small></div>
+              <div class="folio">13/20</div>
+              <div class="linkedin-mark"><span>LinkedIn</span><b>Xiaoxiao Zhouyi</b></div>
+              <div class="copy">
+                <h1>The hard question is trust.</h1>
+                <p>From can it work? to who would use it, pay for it, and repeat it?</p>
+              </div>
+            </section>
+            
+            <section class="slide light s14" data-index="13">
+              
+        <div class="language-stage">
+          <div><small>before</small><b>MFPT</b></div>
+          <i>-></i>
+          <div><small>after</small><b>placement plan</b></div>
+          <i>-></i>
+          <div><small>proof</small><b>benchmark</b></div>
+        </div>
+        
+              <div class="meta"><span>Market</span><small>trust and route to use</small></div>
+              <div class="folio">14/20</div>
+              <div class="linkedin-mark"><span>LinkedIn</span><b>Xiaoxiao Zhouyi</b></div>
+              <div class="copy">
+                <h1>I had to translate novelty into value.</h1>
+                <p>Start with the decision; bring in the method only when it helps.</p>
+              </div>
+            </section>
+            
+            <section class="slide dark s15" data-index="14">
+              <div class="promise-stage"><b>Map in.</b><b>Traps out.</b><b>Proof attached.</b></div>
+              <div class="meta"><span>Market</span><small>trust and route to use</small></div>
+              <div class="folio">15/20</div>
+              <div class="linkedin-mark"><span>LinkedIn</span><b>Xiaoxiao Zhouyi</b></div>
+              <div class="copy">
+                <h1>Map in. Traps out. Proof attached.</h1>
+                <p>The idea has to be simple enough to travel without me in the room.</p>
+              </div>
+            </section>
+            
+            <section class="slide light s16" data-index="15">
+              
+        <div class="rules-stage">
+          <div><b>IP</b><span>protectable route</span></div>
+          <div><b>Pilots</b><span>evidence route</span></div>
+          <div><b>Partners</b><span>adoption route</span></div>
+        </div>
+        
+              <div class="meta"><span>Market</span><small>trust and route to use</small></div>
+              <div class="folio">16/20</div>
+              <div class="linkedin-mark"><span>LinkedIn</span><b>Xiaoxiao Zhouyi</b></div>
+              <div class="copy">
+                <h1>A useful tool needs rules of the road.</h1>
+                <p>IP, pilots, partners, and adoption route matter because they protect the next step.</p>
+              </div>
+            </section>
+            
+            <section class="slide light s17" data-index="16">
+              
+        <div class="ask-stage">
+          <div><b>Pilot site</b><span>real layout</span></div>
+          <div><b>Expert feedback</b><span>field constraints</span></div>
+          <div><b>Partner route</b><span>workflow owner</span></div>
+        </div>
+        
+              <div class="meta"><span>Ask</span><small>from showcase to pilot</small></div>
+              <div class="folio">17/20</div>
+              <div class="linkedin-mark"><span>LinkedIn</span><b>Xiaoxiao Zhouyi</b></div>
+              <div class="copy">
+                <h1>The next step needs real sites.</h1>
+                <p>I am looking for pilot conversations, pest-control expertise, and practical feedback.</p>
+              </div>
+            </section>
+            
+            <section class="slide light s18" data-index="17">
+              
+        <div class="route-stage">
+          <div><small>Feb 2026</small><b>Ceres AgriTech</b><span>roadshow + follow-up route</span></div>
+          <i>-></i>
+          <div class="hot"><small>Jun 2026</small><b>LINCAM EOI</b><span>advice requested</span></div>
+          <i>-></i>
+          <div><small>now</small><b>software/IP</b><span>form submitted</span></div>
+        </div>
+        <div class="route-foot">Greater Lincolnshire + North Cambridgeshire impact route</div>
+        
+              <div class="meta"><span>Ask</span><small>from showcase to pilot</small></div>
+              <div class="folio">18/20</div>
+              <div class="linkedin-mark"><span>LinkedIn</span><b>Xiaoxiao Zhouyi</b></div>
+              <div class="copy">
+                <h1>The route to use has already started.</h1>
+                <p>Ceres AgriTech LINCAM EOI advice is underway, with software/IP information submitted through Bristol.</p>
+              </div>
+            </section>
+            
+            <section class="slide light s19" data-index="18">
+              
+        <div class="pilot-path">
+          <div><b>Showcase</b></div><i>-></i>
+          <div><b>Site</b></div><i>-></i>
+          <div><b>Map</b></div><i>-></i>
+          <div><b>Pilot</b></div>
+        </div>
+        
+              <div class="meta"><span>Ask</span><small>from showcase to pilot</small></div>
+              <div class="folio">19/20</div>
+              <div class="linkedin-mark"><span>LinkedIn</span><b>Xiaoxiao Zhouyi</b></div>
+              <div class="copy">
+                <h1>From showcase to pilot conversation.</h1>
+                <p>One partner site, one baseline map, one evidence plan.</p>
+              </div>
+            </section>
+            
+            <section class="slide dark s20" data-index="19">
+              
+        <div class="thanks-stage">
+          <strong>Thank you</strong>
+          <div><b>ECEF</b><b>Luca Giuggioli</b><b>Bristol Innovations</b><b>Ceres AgriTech conversations</b></div>
+        </div>
+        <div class="qr-stage">
+          <img src="assets/linkedin-qr.jpg" alt="LinkedIn QR code">
+          <span>LinkedIn</span>
+          <b>Xiaoxiao Zhouyi</b>
+        </div>
+        
+              <div class="meta"><span>Thanks</span><small>acknowledgements and contact</small></div>
+              <div class="folio">20/20</div>
+              <div class="linkedin-mark"><span>LinkedIn</span><b>Xiaoxiao Zhouyi</b></div>
+              <div class="copy">
+                <h1>One useful decision, made clearer.</h1>
+                <p>Thanks to ECEF, my supervisor Luca Giuggioli, Bristol Innovations, and the Ceres AgriTech conversations.</p>
+              </div>
+            </section>
+            </main></div></div>
+<div class="hud"><span id="where">1 / 20</span><span id="timer">00:00</span></div>
+<div class="bar"><i id="bar"></i></div>
+<div class="help" id="help">V3 timed mode | Auto-advance every 20s | Space/Right next | Left previous | F fullscreen | T reset</div>
+<script>
+const slides = [{"num": 1, "title": "BioPath", "visual": "Map in. Traps out. Proof attached.", "support": "Turning movement research into a pest-placement decision.", "note": "Hi, I'm Xiaoxiao Zhouyi. I work on movement and encounter models, and BioPath is my ECEF project: a tool that turns a site map into better trap locations. The promise is simple: map in, traps out, proof attached."}, {"num": 2, "title": "The Strawberry Reason", "visual": "This started close to home.", "support": "Movement modelling is my route in; my grandfather's strawberries are why it feels personal.", "note": "I come to this as someone who works on movement and encounters. But the motivation is also personal: my grandfather's home grew strawberries. So crop protection was never only a market or a model. It was plants, labour, timing, and uncertainty."}, {"num": 3, "title": "What Counts as a Trap", "visual": "A trap is where movement becomes evidence.", "support": "Lures attract, sticky cards catch, and monitoring points count what is happening in the crop row.", "note": "When I say trap, I mean a practical monitoring point in the crop: it might use a lure, a sticky card, or a small sensor. The key idea is that the trap turns movement into evidence. BioPath asks where those points should go, so the evidence is useful rather than accidental."}, {"num": 4, "title": "Why It Matters", "visual": "A few metres can change the work that follows.", "support": "Better placement can reduce wasted checks, chemical pressure, and weak explanations.", "note": "Why does that matter? Because a small placement decision can create a lot of follow-up work. If traps are in weak positions, people spend time checking, moving, and defending them. BioPath is meant to make that first decision clearer."}, {"num": 5, "title": "Research Origin", "visual": "Movement is uncertain. The environment shapes it.", "support": "Encounters are not random once space has structure.", "note": "The research idea is simple enough to say without equations. Movement is uncertain, but it is not random in every direction. Walls, corridors, entrances, and risky zones all shape where encounters are likely. That is the piece BioPath uses."}, {"num": 6, "title": "Translation", "visual": "ECEF moved the model toward a user decision.", "support": "A clever equation is not enough; someone has to act on the answer.", "note": "ECEF helped me stop treating this only as a model. A model can be clever and still not help anyone. The user question is sharper: can someone draw a map, choose a budget, and understand the recommended placements?"}, {"num": 7, "title": "Fellowship Frame", "visual": "The fellowship made the idea visible.", "support": "User, evidence, prototype, and story all had to become concrete.", "note": "The fellowship gave the idea a deadline and a room full of useful pressure. It made me test the parts I used to postpone: who needs this, what they would trust, and what the first version should prove."}, {"num": 8, "title": "What BioPath Does", "visual": "A simple workflow people can question.", "support": "Map, budget, coordinates, proof: each step should be explainable.", "note": "The product version is intentionally plain. A user starts with a site map and a number of traps. BioPath returns a ranked plan plus a benchmark. The important thing is not the picture; it is whether the recommendation can be discussed."}, {"num": 9, "title": "Prototype", "visual": "The prototype makes the story concrete.", "support": "Solver, API, web demo, and saved run outputs make the workflow tangible.", "note": "I have built enough of the prototype to make the idea tangible. There is a solver, a small API, a web demo, and saved run outputs. It is not polished software yet, but it is no longer just a sentence on a slide."}, {"num": 10, "title": "Model Layer", "visual": "The map makes the assumptions visible.", "support": "A synthetic site lets us discuss the logic without private field data.", "note": "Before BioPath solves anything, it needs to know what the site looks like. Where can movement happen? Where are the barriers? Which areas matter most? I use a synthetic map here so the assumptions stay visible and discussable."}, {"num": 11, "title": "Solve Layer", "visual": "Coordinates, not just a picture.", "support": "The decision shifts from gut feel alone to a placement that can be tested.", "note": "Then the model searches for placements. I do not need to show every calculation in this talk. The point is the change in the decision: instead of saying these spots look right, we can ask why these spots, and how good are they?"}, {"num": 12, "title": "Early Proof", "visual": "Early evidence turns the next test specific.", "support": "Demo metrics are not the finish line; they define what a pilot should measure.", "note": "The numbers here are not the finish line. They are a starting point for the evidence a pilot would need. Capture score, distance, and robustness give me concrete things to ask about, instead of asking vaguely whether this looks good."}, {"num": 13, "title": "Customer Discovery", "visual": "The hard question is trust.", "support": "From can it work? to who would use it, pay for it, and repeat it?", "note": "ECEF changed the question from, can I make the algorithm work, to, who would actually use this? That is a bigger question. The Ceres AgriTech conversations helped make it practical: trust, workflow, price, evidence, and grower needs."}, {"num": 14, "title": "Language Shift", "visual": "I had to translate novelty into value.", "support": "Start with the decision; bring in the method only when it helps.", "note": "I also had to change my language. In research, I might start with mean first-passage time. In a room like this, that starts too far in. I should start with the decision: where to place traps, and why."}, {"num": 15, "title": "The Product Promise", "visual": "Map in. Traps out. Proof attached.", "support": "The idea has to be simple enough to travel without me in the room.", "note": "That phrase is the product promise. Map in means a real site. Traps out means a concrete recommendation. Proof attached means the decision can be questioned. If people remember that, BioPath has a story that can travel."}, {"num": 16, "title": "Commercialisation Reality", "visual": "A useful tool needs rules of the road.", "support": "IP, pilots, partners, and adoption route matter because they protect the next step.", "note": "Commercialisation made the project more real. I have started the software and IP route, and I need pilots and partners around that. Those details should support the main story, not bury it. The story is still the decision."}, {"num": 17, "title": "The Ask", "visual": "The next step needs real sites.", "support": "I am looking for pilot conversations, pest-control expertise, and practical feedback.", "note": "The most useful response would be a real test. I would love to speak with growers, pest managers, agritech people, or anyone who knows field constraints. A small pilot conversation would tell me far more than general interest."}, {"num": 18, "title": "Not Just on Paper", "visual": "The route to use has already started.", "support": "Ceres AgriTech LINCAM EOI advice is underway, with software/IP information submitted through Bristol.", "note": "This is not just a slide exercise. I have already asked Bristol's commercialisation team about a Ceres AgriTech LINCAM Proof of Concept EOI, and I have submitted the software information form. That does not mean funding is secured. It means the route is real."}, {"num": 19, "title": "Next Step", "visual": "From showcase to pilot conversation.", "support": "One partner site, one baseline map, one evidence plan.", "note": "After this showcase, the practical next step is deliberately small: one partner site, one baseline map, and one evidence plan. The LINCAM route is useful because it asks exactly those questions: grower need, field evidence, and commercial fit."}, {"num": 20, "title": "Thank You", "visual": "One useful decision, made clearer.", "support": "Thanks to ECEF, my supervisor Luca Giuggioli, Bristol Innovations, and the Ceres AgriTech conversations.", "note": "So the final message is simple. BioPath takes a messy placement decision and makes it easier to discuss: here is the map, here are the coordinates, here is the evidence. Thank you to ECEF, Luca, Bristol Innovations, and the Ceres AgriTech conversations that helped move this toward practice."}];
+const STORAGE_KEY = 'biopath-ecef-festival-v3-slide';
+const STATE_KEY = 'biopath-ecef-festival-v3-state';
+const CHANNEL = 'biopath-ecef-festival-v3-channel';
+const SLIDE_SECONDS = 20;
+const syncChannel = 'BroadcastChannel' in window ? new BroadcastChannel(CHANNEL) : null;
+function readState() {
+  try { return JSON.parse(localStorage.getItem(STATE_KEY) || 'null') || {}; } catch { return {}; }
+}
+const initialState = readState();
+const requestedSlide = new URLSearchParams(location.search).get('slide');
+let index = Number(requestedSlide ?? initialState.index ?? localStorage.getItem(STORAGE_KEY) ?? 0);
+let slideStarted = Number(initialState.startedAt) || Date.now();
+const deck = document.getElementById('deck');
+const slideEls = [...document.querySelectorAll('.slide')];
+const where = document.getElementById('where');
+const timer = document.getElementById('timer');
+const bar = document.getElementById('bar');
+const help = document.getElementById('help');
+function setScale() {
+  const wrap = document.querySelector('.deck-wrap');
+  deck.style.setProperty('--scale', Math.min(wrap.clientWidth / 1280, wrap.clientHeight / 720));
+}
+function saveIndex(value, startedAt = slideStarted) {
+  const state = { index: value, startedAt };
+  try {
+    localStorage.setItem(STORAGE_KEY, String(value));
+    localStorage.setItem(STATE_KEY, JSON.stringify(state));
+  } catch {}
+  try { syncChannel?.postMessage({ type: 'slide', ...state }); } catch {}
+}
+function showSlide(i, broadcast = true, startedAt = Date.now()) {
+  index = Math.max(0, Math.min(slides.length - 1, Number(i) || 0));
+  slideStarted = Number(startedAt) || Date.now();
+  slideEls.forEach((slide, n) => slide.classList.toggle('active', n === index));
+  where.textContent = `${index + 1} / ${slides.length}`;
+  bar.style.width = '0%';
+  if (broadcast) saveIndex(index, slideStarted);
+}
+function tick() {
+  const elapsedMs = Date.now() - slideStarted;
+  const elapsed = Math.floor(elapsedMs / 1000);
+  const remaining = Math.max(0, SLIDE_SECONDS - elapsed);
+  timer.textContent = `00:${String(remaining).padStart(2,'0')}`;
+  bar.style.width = `${Math.min(100, (elapsedMs / (SLIDE_SECONDS * 1000)) * 100)}%`;
+  if (elapsedMs >= SLIDE_SECONDS * 1000 && index < slides.length - 1) {
+    showSlide(index + 1);
+    return tick();
+  }
+}
+document.addEventListener('keydown', async event => {
+  if (event.key === 'ArrowRight' || event.key === ' ' || event.key === 'PageDown') { event.preventDefault(); showSlide(index + 1); }
+  if (event.key === 'ArrowLeft' || event.key === 'PageUp') { event.preventDefault(); showSlide(index - 1); }
+  if (event.key.toLowerCase() === 't') { slideStarted = Date.now(); saveIndex(index, slideStarted); }
+  if (event.key.toLowerCase() === 'f') {
+    if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
+    else await document.exitFullscreen();
+  }
+});
+window.addEventListener('storage', event => {
+  if (event.key === STATE_KEY && event.newValue !== null) {
+    try {
+      const state = JSON.parse(event.newValue);
+      showSlide(Number(state.index), false, Number(state.startedAt));
+    } catch {}
+  }
+});
+syncChannel?.addEventListener('message', event => {
+  if (event.data?.type === 'slide') showSlide(Number(event.data.index), false, Number(event.data.startedAt));
+});
+window.addEventListener('resize', setScale);
+window.showSlide = showSlide;
+window.__debugSetSlideElapsed = seconds => { slideStarted = Date.now() - (Number(seconds) || 0) * 1000; tick(); };
+setScale();
+showSlide(index, true, requestedSlide === null ? slideStarted : Date.now());
+tick();
+setInterval(tick, 250);
+setTimeout(() => help.style.display = 'none', 7000);
+</script>
+</body>
+</html>
