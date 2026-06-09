@@ -81,14 +81,14 @@
     "title": "Early Proof",
     "visual": "Early evidence turns the next test specific.",
     "support": "Demo metrics are not the finish line; they define what a pilot should measure.",
-    "note": "The numbers here are not the finish line. They are a starting point for the evidence a pilot would need. Capture score, distance, and robustness give me concrete things to ask about, instead of asking vaguely whether this looks good."
+    "note": "The numbers here are not the finish line. They are a starting point for the evidence a pilot would need. Capture score, mean distance, and P95 distance give me concrete things to ask about, instead of asking vaguely whether this looks good."
   },
   {
     "num": 13,
     "title": "Customer Discovery",
     "visual": "The hard question is trust.",
     "support": "From can it work? to who would use it, pay for it, and repeat it?",
-    "note": "ECEF changed the question from, can I make the algorithm work, to, who would actually use this? That is a bigger question. The Ceres AgriTech conversations helped make it practical: trust, workflow, price, evidence, and grower needs."
+    "note": "ECEF changed the question from, can I make the algorithm work, to, who would actually use this? That is a bigger question. The Ceres Agri-Tech conversations helped make it practical: trust, workflow, price, evidence, and grower needs."
   },
   {
     "num": 14,
@@ -122,8 +122,8 @@
     "num": 18,
     "title": "Not Just on Paper",
     "visual": "The route to use has already started.",
-    "support": "Ceres AgriTech LINCAM EOI advice is underway, with software/IP information submitted through Bristol.",
-    "note": "This is not just a slide exercise. I have already asked Bristol's commercialisation team about a Ceres AgriTech LINCAM Proof of Concept EOI, and I have submitted the software information form. That does not mean funding is secured. It means the route is real."
+    "support": "Ceres Agri-Tech LINCAM EOI advice is underway, with software/IP information submitted through Bristol.",
+    "note": "This is not just a slide exercise. I have already asked Bristol's commercialisation team about a Ceres Agri-Tech LINCAM Proof of Concept EOI, and I have submitted the software information form. That does not mean funding is secured. It means the route is real."
   },
   {
     "num": 19,
@@ -136,7 +136,7 @@
     "num": 20,
     "title": "Thank You",
     "visual": "One useful decision, made clearer.",
-    "support": "Thanks to ECEF, my supervisor Luca Giuggioli, Bristol Innovations, and the Ceres AgriTech conversations.",
-    "note": "So the final message is simple. BioPath takes a messy placement decision and makes it easier to discuss: here is the map, here are the coordinates, here is the evidence. Thank you to ECEF, Luca, Bristol Innovations, and the Ceres AgriTech conversations that helped move this toward practice."
+    "support": "Thanks to ECEF, my supervisor Luca Giuggioli, Bristol Innovations, and the Ceres Agri-Tech conversations.",
+    "note": "So the final message is simple. BioPath takes a messy placement decision and makes it easier to discuss: here is the map, here are the coordinates, here is the evidence. Thank you to ECEF, Luca, Bristol Innovations, and the Ceres Agri-Tech conversations that helped move this toward practice."
   }
 ]
